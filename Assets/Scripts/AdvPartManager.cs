@@ -17,6 +17,9 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     [SerializeField]
     GameObject CoffeeRequestSet;
 
+    [SerializeField]
+    GameObject ItemSet;
+
     //キャンバス
     [SerializeField]
     GameObject AdvCanvas;
@@ -143,6 +146,21 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
             var gameObject = Instantiate(MarketSellSet);
             gameObject.transform.SetParent(AdvCanvas.transform, false);
             actList.Add(new MarketSellAct(name, gameObject.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp));
+        }
+        getAct(name).StartUp();
+        AdvUIManager.Instance.UpdateText();
+        townBaseAct.Close();
+        townBaseAct.CloseImage();
+    }
+
+    public void StartUpMarketSell2()
+    {
+        var name = "MarketSell2";
+        if (getAct(name) == null)
+        {
+            var gameObject = Instantiate(ItemSet);
+            gameObject.transform.SetParent(AdvCanvas.transform, false);
+            actList.Add(new MarketSellAct2(name, gameObject.GetComponent<ItemSet>(), townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         AdvUIManager.Instance.UpdateText();

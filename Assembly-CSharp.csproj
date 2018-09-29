@@ -84,12 +84,15 @@
     <Compile Include="Assets\Scripts\Novel\TextBox.cs" />
     <Compile Include="Assets\Scripts\Novel\TextlData.cs" />
     <Compile Include="Assets\Scripts\PlayerDataManager.cs" />
+    <Compile Include="Assets\Scripts\TownAct\AbstractSecondItemAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\AbstractSecondTownAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\AbstractTownAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\AttelierStorageAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\CaffeRequestAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\MarketPurchaseAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\MarketSellAct.cs" />
+    <Compile Include="Assets\Scripts\TownAct\MarketSellAct2.cs" />
+    <Compile Include="Assets\Scripts\TownAct\PrefabSet\ItemSet.cs" />
     <Compile Include="Assets\Scripts\TownAct\PrefabSet\TownBaseSet.cs" />
     <Compile Include="Assets\Scripts\TownAct\PrefabSet\UIPrefabsSet.cs" />
     <Compile Include="Assets\Scripts\TownAct\TownBaseAct.cs" />

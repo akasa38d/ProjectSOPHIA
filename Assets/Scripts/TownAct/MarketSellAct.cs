@@ -7,6 +7,8 @@ public class MarketSellAct : AbstractSecondTownAct<ItemBase>
 {
     //アイテムのリスト(現状最大３０)
 
+    public ItemSet itemSet;
+
     public MarketSellAct(string name, UIPrefabsSet pSet, Exec exec) : base(name, pSet, exec) { }
 
     protected override void loadObjects()
