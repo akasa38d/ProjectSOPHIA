@@ -39,9 +39,6 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
         //UI初期位置
         selectObject(singleIterator.Count);
-
-        //コントローラーのセット
-        Controller.Instance.SetState(Name, Update);
     }
 
     protected virtual void layoutObjects()

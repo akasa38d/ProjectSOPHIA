@@ -28,8 +28,6 @@ public class SingleTextAct : AbstractTextAct
         //イテレータ―の初期化
         textIterator = 0;
 
-        Controller.Instance.SetState(Name, Update);
-
         if (textChain.Count == 0)
         {
             Close();

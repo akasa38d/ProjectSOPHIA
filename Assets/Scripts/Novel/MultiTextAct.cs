@@ -31,9 +31,6 @@ public class MultiTextAct : AbstractTextAct
 
         //UI初期位置
         selectPeople(personIterator.Count);
-
-        //コントローラーのセット
-        Controller.Instance.SetState(Name, Update);
     }
 
     public override void Close()

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class TownBaseAct : AbstractTownAct
 {
@@ -10,9 +9,6 @@ public class TownBaseAct : AbstractTownAct
     TownBaseIterator advIterator;
 
     TownBaseSet townBaseSet;
-
-    SingleIterator facilityIterator;
-    List<SingleIterator> fActIterators;
 
     //コンストラクタ
     public TownBaseAct(string name, TownBaseSet component)
@@ -23,13 +19,6 @@ public class TownBaseAct : AbstractTownAct
         Facilities = new List<Facility>() { new Atelier(), new Coffee(), new Market(), new Dungeon() };
 
         advIterator = new TownBaseIterator(this);
-
-        facilityIterator = new SingleIterator(Facilities.Count);
-        fActIterators = new List<SingleIterator>();
-        for(int i = 0; i < Facilities.Count; i++)
-        {
-            fActIterators.Add(new SingleIterator(Facilities[i].FacilityActs.Count));
-        }
     }
 
     //AdvPartManagerでの起動
@@ -42,9 +31,6 @@ public class TownBaseAct : AbstractTownAct
         enterFacility(advIterator.Facility);
 
         selectFacilityActs(advIterator.FacilityAct);
-
-        //コントロールのセット
-        Controller.Instance.SetState("TownBase", Update);
     }
 
     //AdvPartManagerでの一時消し
@@ -103,7 +89,6 @@ public class TownBaseAct : AbstractTownAct
         {
             enterFacility(facilityNumber);
             selectFacilityActs(advIterator.FacilityAct);
-            Controller.Instance.SetState("TownBase", Update);
             facility.firstFlag = true;
             AdvPartManager.Instance.CurrentAct = this;
         });
