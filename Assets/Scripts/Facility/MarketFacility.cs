@@ -30,7 +30,7 @@ public class Market_Sale : FacilityAct
 
     public override void Action()
     {
-        AdvPartManager.Instance.StartUpMarketSell2();
+        AdvPartManager.Instance.StartUpMarketSell();
     }
 }
 

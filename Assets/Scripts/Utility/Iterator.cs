@@ -1,4 +1,5 @@
 ﻿using MyUtility;
+using UnityEngine;
 
 public class TownBaseIterator
 {
@@ -75,7 +76,7 @@ public class SingleIterator
 public class ItemIterator<T>
 {
     //内部のアイテム・キャンセル
-    public int InnerNow { private set; get; }
+    public int InnerNow { get { return UINow + SlideNow * ColumnCount; } }
     public int InnerMax { private set; get; }
 
     //カーソルの位置
@@ -86,7 +87,7 @@ public class ItemIterator<T>
     public int ButtonMax { private set; get; }
 
     //スライド
-    public int SlideCount { private set; get; }
+    public int SlideNow { private set; get; }
     public int SlideMax { private set; get; } = 0;
 
     //１行あたりの数
@@ -94,28 +95,30 @@ public class ItemIterator<T>
 
     AbstractSecondItemAct<T> itemAct;
 
-    public ItemIterator(int innerMax, int buttonMax)
+    public ItemIterator(int innerMax, int buttonMax, AbstractSecondItemAct<T> act)
     {
+        itemAct = act;
         InnerMax = innerMax;
         ButtonMax = buttonMax;
         UIMax = InnerMax < ButtonMax ? InnerMax : ButtonMax;
-        SlideMax = InnerMax < ButtonMax ? 0 : (InnerMax - ButtonMax) / ColumnCount + 1;
+        SlideMax = InnerMax < ButtonMax ? 0 : (InnerMax - ButtonMax - 1) / ColumnCount + 1;
+        Debug.Log(SlideMax + " : SlideMax");
+        Debug.Log(ButtonMax + " : ButtonMax");
+        Debug.Log(InnerMax + " : InnerMax");
+        Debug.Log(UIMax + " : UIMax");
+        Debug.Log(itemAct.Name);
     }
 
     public void Up()
     {
-        if(InnerNow - ColumnCount >= 0)
+        if (InnerNow >= ColumnCount)
         {
-            InnerNow -= ColumnCount;
-            if(UINow - ColumnCount  >= 0)
-            {
-                UINow -= ColumnCount;
-            }
+            if (UINow >= ColumnCount) { UINow -= ColumnCount; }
             else
             {
-                SlideCount--;
-                //UIMaxの更新処理
-                UIMax = InnerMax - SlideCount * ColumnCount > ButtonMax ? InnerMax - SlideCount * ColumnCount : ButtonMax;
+                SlideNow--;
+                UIMax = InnerMax - SlideNow + ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax;
+                itemAct.LayoutObjects();
             }
         }
     }
@@ -124,26 +127,19 @@ public class ItemIterator<T>
     {
         if (InnerNow + ColumnCount < InnerMax)
         {
-            InnerNow += ColumnCount;
-
-            if (UINow + ColumnCount < UIMax)
-            {
-                //スライドしない
-                UINow += ColumnCount;
-            }
+            if (UINow + ColumnCount < UIMax) { UINow += ColumnCount; }
             else
             {
-                //スライドする
-                SlideCount++;
-                UIMax = InnerMax - SlideCount * ColumnCount > ButtonMax ? InnerMax - SlideCount * ColumnCount : ButtonMax;
+                SlideNow++;
+                UIMax = InnerMax - SlideNow * ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax;
                 itemAct.LayoutObjects();
             }
         }
-        else if(SlideCount < SlideMax)
+        else if (SlideNow < SlideMax)
         {
             UINow -= ColumnCount;
-            SlideCount++;
-            UIMax = InnerMax - SlideCount * ColumnCount > ButtonMax ? InnerMax - SlideCount * ColumnCount : ButtonMax;
+            SlideNow++;
+            UIMax = InnerMax - SlideNow * ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax;
             itemAct.LayoutObjects();
         }
     }
@@ -152,17 +148,28 @@ public class ItemIterator<T>
     {
         if (InnerNow > 0 && UINow % ColumnCount != 0)
         {
-            InnerNow--;
             UINow--;
         }
+        /*ループ
+        else
+        {
+            if (UINow + ColumnCount - 1 > UIMax) { UINow = UIMax - 1; }
+            else { UINow += ColumnCount - 1; }
+        }
+        */
     }
 
     public void Right()
     {
-        if(InnerNow + 1 < InnerMax && UINow % ColumnCount != ColumnCount - 1)
+        if (InnerNow + 1 < InnerMax && UINow % ColumnCount != ColumnCount - 1)
         {
-            InnerNow++;
             UINow++;
         }
+        /*ループ
+        else
+        {
+            UINow -= InnerNow2 % ColumnCount;
+        }
+        */
     }
 }

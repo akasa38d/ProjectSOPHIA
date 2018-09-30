@@ -27,5 +27,9 @@ public static class LoadManager
         playerDataManager.Items.Add(dataBaseManager.GetItemBase(1));
         playerDataManager.Items.Add(dataBaseManager.GetItemBase(2));
         playerDataManager.Items.Add(dataBaseManager.GetItemBase(3));
+        for(int i = 0; i < 40; i++)
+        {
+            playerDataManager.Items.Add(dataBaseManager.GetItemBase(4));
+        }
     }
 }

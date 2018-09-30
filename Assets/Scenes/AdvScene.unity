@@ -493,11 +493,10 @@ MonoBehaviour:
     type: 2}
   MarketPurchaseSet: {fileID: 1175165762253512, guid: 27fd083166d246144b3071f5728b196a,
     type: 2}
-  MarketSellSet: {fileID: 1530343282225680, guid: be31df4b6844e054b9190574a2711010,
-    type: 2}
   CoffeeRequestSet: {fileID: 1793486557382338, guid: 02dc9a59022709d4da0c4b6e1b154cec,
     type: 2}
-  ItemSet: {fileID: 1615806629295854, guid: 227f139cd074a244692d782c23ba8e98, type: 2}
+  ItemSetPrefabs: {fileID: 1615806629295854, guid: 227f139cd074a244692d782c23ba8e98,
+    type: 2}
   AdvCanvas: {fileID: 978487774}
 --- !u!1 &666582000
 GameObject:

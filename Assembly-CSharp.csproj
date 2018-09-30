@@ -90,7 +90,6 @@
     <Compile Include="Assets\Scripts\TownAct\AttelierStorageAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\CaffeRequestAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\MarketPurchaseAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\MarketSellAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\MarketSellAct2.cs" />
     <Compile Include="Assets\Scripts\TownAct\PrefabSet\ItemSet.cs" />
     <Compile Include="Assets\Scripts\TownAct\PrefabSet\TownBaseSet.cs" />

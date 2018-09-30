@@ -13,12 +13,11 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     [SerializeField]
     GameObject MarketPurchaseSet;
     [SerializeField]
-    GameObject MarketSellSet;
-    [SerializeField]
     GameObject CoffeeRequestSet;
 
     [SerializeField]
-    GameObject ItemSet;
+    GameObject ItemSetPrefabs;
+    GameObject itemSet;
 
     //キャンバス
     [SerializeField]
@@ -48,9 +47,12 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         if (acts.Count() == 0)
         {
             var textFile = Resources.Load(fileName).ToString();
-            var gameObject = Instantiate(TownTalkSet);
-            gameObject.transform.SetParent(AdvCanvas.transform, false);
-            textActList.Add(new MultiTextAct(textFile, gameObject.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp) { Name = fileName });
+            if(itemSet == null)
+            {
+                itemSet = Instantiate(TownTalkSet);
+                itemSet.transform.SetParent(AdvCanvas.transform, false);
+            }
+            textActList.Add(new MultiTextAct(textFile, itemSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp) { Name = fileName });
         }
         return acts.Last();
     }
@@ -143,24 +145,9 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketSell";
         if (getAct(name) == null)
         {
-            var gameObject = Instantiate(MarketSellSet);
+            var gameObject = Instantiate(ItemSetPrefabs);
             gameObject.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new MarketSellAct(name, gameObject.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp));
-        }
-        getAct(name).StartUp();
-        AdvUIManager.Instance.UpdateText();
-        townBaseAct.Close();
-        townBaseAct.CloseImage();
-    }
-
-    public void StartUpMarketSell2()
-    {
-        var name = "MarketSell2";
-        if (getAct(name) == null)
-        {
-            var gameObject = Instantiate(ItemSet);
-            gameObject.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new MarketSellAct2(name, gameObject.GetComponent<ItemSet>(), townBaseAct.StartUp));
+            actList.Add(new MarketSellAct(name, gameObject.GetComponent<ItemSet>(), townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         AdvUIManager.Instance.UpdateText();

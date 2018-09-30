@@ -5,8 +5,14 @@ using UnityEngine.UI;
 public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 {
     protected ItemIterator<T> itemIterator;
+    protected int slideNow { get { return itemIterator.SlideNow; } }
+    protected int slideMax { get { return itemIterator.SlideMax; } }
+    protected int columnCount { get { return itemIterator.ColumnCount; } }
+    protected int uiMax { get { return itemIterator.UIMax; } }
+    protected int innerNow { get { return itemIterator.InnerNow; } }
+    protected int innerMax { get { return itemIterator.InnerMax; } }
 
-    protected ItemSet prefabsSet;
+    protected ItemSet itemSet;
 
     protected List<ItemBase> objects;
 
@@ -16,7 +22,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
         Name = name;
 
         //オブジェクトの設定
-        prefabsSet = iSet;
+        itemSet = iSet;
 
         //デリゲートの設定
         ReturnAct = exec;
@@ -32,7 +38,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
         base.StartUp();
 
         //イテレータ―の初期化
-        itemIterator = new ItemIterator<T>(objects.Count + 1, prefabsSet.Buttons.Count);
+        itemIterator = new ItemIterator<T>(objects.Count + 1, itemSet.Buttons.Count, this);
 
         //UIの表示
         LayoutObjects();
@@ -43,15 +49,33 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     public virtual void LayoutObjects()
     {
-        if (prefabsSet.Window != null)
-        {
-            prefabsSet.Window.SetActive(true);
-        }
+        itemSet.Window.SetActive(true);
 
-        foreach (var n in prefabsSet.Buttons)
+        foreach (var n in itemSet.Buttons)
         {
             n.SetActive(false);
+            n.transform.localScale = new Vector3(1, 1, 1);
         }
+
+        for (int i = 0; i < uiMax; i++)
+        {
+            itemSet.Buttons[i].SetActive(true);
+
+            //後でプロパティを設定
+            if (i + slideNow * columnCount < innerMax - 1)
+            {
+                itemSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i + slideNow * columnCount].Name;
+            }
+            else if (i + slideNow * columnCount == innerMax - 1)
+            {
+                itemSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = "キャンセル";
+            }
+        }
+
+        if (slideNow == 0) { itemSet.UpButton.SetActive(false); }
+        if(slideNow > 0) { itemSet.UpButton.SetActive(true); }
+        if(slideNow < slideMax) { itemSet.DownButton.SetActive(true); }
+        if (slideNow == slideMax) { itemSet.DownButton.SetActive(false); }
     }
 
     public override void Close()
@@ -60,36 +84,88 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
         AdvUIManager.Instance.UpdateMessageText("", "");
 
         //UIを消す
-        if (prefabsSet.Window != null)
+        if (itemSet.Window != null)
         {
-            prefabsSet.Window.SetActive(false);
+            itemSet.Window.SetActive(false);
         }
-        foreach (var n in prefabsSet.Buttons)
+        foreach (var n in itemSet.Buttons)
         {
             n.SetActive(false);
             n.transform.localScale = new Vector3(1, 1, 1);
         }
 
+        itemSet.UpButton.SetActive(false);
+        itemSet.DownButton.SetActive(false);
+
         //返還
         ReturnAct();
     }
 
-    protected virtual void selectObject(int count)
+    protected virtual void selectObject(int uiCount)
     {
         //アニメーションさせる
-        for (int i = 0; i < prefabsSet.Buttons.Count; i++)
+        for (int i = 0; i < itemSet.Buttons.Count; i++)
         {
-            if (i == count)
+            if (i == uiCount)
             {
-                prefabsSet.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
+                itemSet.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
             }
 
-            else if (prefabsSet.Buttons[i].activeSelf == true)
+            else if (itemSet.Buttons[i].activeSelf == true)
             {
-                prefabsSet.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
+                itemSet.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
             }
         }
     }
 
-    public override void Update() { }
+    public override void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            itemIterator.Right();
+            selectObject(itemIterator.UINow);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            itemIterator.Left();
+            selectObject(itemIterator.UINow);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            itemIterator.Up();
+            selectObject(itemIterator.UINow);
+        }
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            itemIterator.Down();
+            selectObject(itemIterator.UINow);
+        }
+
+        //決定
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if(innerNow < innerMax - 1)
+            {
+                Action();
+            }
+            if (innerNow == innerMax - 1)
+            {
+                Close();
+            }
+        }
+
+        //キャンセル
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Close();
+        }
+    }
+
+    public virtual void Action()
+    {
+        Debug.Log(innerNow + "番アイテムを選択");
+    }
 }

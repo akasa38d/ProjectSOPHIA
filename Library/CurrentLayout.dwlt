@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 4}
-  m_MinSize: {x: 950, y: 371}
+  m_MinSize: {x: 950, y: 392}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -93,7 +93,7 @@ MonoBehaviour:
     y: 0
     width: 1366
     height: 685
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 392}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &5
 MonoBehaviour:
@@ -158,10 +158,10 @@ MonoBehaviour:
     y: 30
     width: 1366
     height: 635
-  m_MinSize: {x: 915, y: 321}
+  m_MinSize: {x: 915, y: 342}
   m_MaxSize: {x: 22010, y: 10021}
   vertical: 0
-  controlID: 31
+  controlID: 11
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -182,10 +182,10 @@ MonoBehaviour:
     y: 0
     width: 651
     height: 635
-  m_MinSize: {x: 204, y: 321}
-  m_MaxSize: {x: 4004, y: 8021}
+  m_MinSize: {x: 204, y: 342}
+  m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-  controlID: 32
+  controlID: 12
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -230,8 +230,8 @@ MonoBehaviour:
     y: 406
     width: 651
     height: 229
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 104, y: 121}
+  m_MaxSize: {x: 4004, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -407,9 +407,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 342.3295, y: 179.4971, z: -84.555115}
+    m_Target: {x: 343.47934, y: 179.4971, z: -84.555115}
     speed: 2
-    m_Value: {x: 342.3295, y: 179.4971, z: -84.555115}
+    m_Value: {x: 343.47934, y: 179.4971, z: -84.555115}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -439,11 +439,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0, y: 0, z: -0, w: -1}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: -1}
+    m_Value: {x: -0, y: 0, z: -0, w: -1}
   m_Size:
-    m_Target: 394.81784
+    m_Target: 328.40536
     speed: 2
-    m_Value: 394.81784
+    m_Value: 328.40536
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -658,19 +658,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/TownAct
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/TownAct
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: "C:\\Users\\\u5553\u592A\u2161\\Documents\\Unity\\ProjectSOPHIA"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c82a0000
-    m_LastClickedID: 10952
+    m_SelectedIDs: 5a2c0000
+    m_LastClickedID: 11354
     m_ExpandedIDs: 00000000702a0000c82a0000902b0000fc2b00005a2c0000022d0000502d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: be440000da0a0000160b0000ca000000a4020000ee000000dc000000fc1a0000c6270000f81c0000d21c0000481d0000401d00003c2b0000662c0000021d0000fe1c0000141d0000e61c000040210000f61c0000f41c0000227bfdff7e35fdff7c310000741d00005e1d0000881d000082fefeffb21d00009c1d0000c61d0000163f0000e01d0000de1d0000e41d0000ec34fdff661e00006a1e000098200000961f00001e1f00007a1c00007e1c0000821c0000de1c00001e1c0000ae38feffbc35feff7a2100002c1f00004825000044250000b21f0000ae1f0000b01f0000bc5800001c220000ea10fdff3e2dfdff58050000ee1e000054050000cc2a0000c4bcfaff7c2c0000e62a0000ec2a00008a47fdffb8dcf8ffe25bfdffe2fdfeff
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -751,7 +751,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 374}
+    m_ScrollPosition: {x: 0, y: 653}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 110
 --- !u!114 &20
