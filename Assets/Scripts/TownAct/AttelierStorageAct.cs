@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttelierStorageAct : AbstractSecondTownAct<ASAct>
+public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
 {
     TownBaseAct townBaseAct;
 
@@ -10,7 +10,7 @@ public class AttelierStorageAct : AbstractSecondTownAct<ASAct>
 
     protected override void loadObjects()
     {
-        objects = new List<ASAct>();
+        objects = new List<AStorageAct>();
         objects.Add(new PutItem());
         objects.Add(new PullItem());
     }
@@ -20,6 +20,9 @@ public class AttelierStorageAct : AbstractSecondTownAct<ASAct>
     protected override void layoutObjects()
     {
         base.layoutObjects();
+
+        prefabsSet.Window.SetActive(false);
+        prefabsSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
 
         townBaseAct.OpenImage();
 
@@ -70,6 +73,10 @@ public class AttelierStorageAct : AbstractSecondTownAct<ASAct>
         //決定
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            if(singleIterator.Count < objects.Count)
+            {
+                objects[singleIterator.Count].Action();
+            }
             if (singleIterator.Count == objects.Count)
             {
                 Close();
@@ -84,24 +91,32 @@ public class AttelierStorageAct : AbstractSecondTownAct<ASAct>
     }
 }
 
-public abstract class ASAct
+public abstract class AStorageAct
 {
     public string Name;
-    public void Action() { }
+    public virtual void Action() { Debug.Log("未実装です"); }
 }
 
-public class PutItem : ASAct
+public class PutItem : AStorageAct
 {
     public PutItem()
     {
         Name = "PutItemAct";
     }
+    public override void Action()
+    {
+        base.Action();
+    }
 }
 
-public class PullItem : ASAct
+public class PullItem : AStorageAct
 {
     public PullItem()
     {
         Name = "PullItemAct";
+    }
+    public override void Action()
+    {
+        base.Action();
     }
 }

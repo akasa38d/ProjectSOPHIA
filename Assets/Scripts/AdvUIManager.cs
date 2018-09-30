@@ -35,9 +35,9 @@ public class AdvUIManager : SingletonMonoBehaviour<AdvUIManager>
         placeText.text = place;
     }
 
-    public void UpdateMoneyText(int money)
+    public void UpdateMoneyText()
     {
-        moneyText.text = money.ToStringMoney() + " M";
+        moneyText.text = PlayerDataManager.Instance.Money.ToStringMoney() + " M";
     }
 
     public void UpdateMessageText(string name, string message)
@@ -51,7 +51,7 @@ public class AdvUIManager : SingletonMonoBehaviour<AdvUIManager>
         var playerData = PlayerDataManager.Instance;
         dateText.text = playerData.currentDate.Month + "月  " + playerData.currentDate.Week + "週  " + playerData.currentDate.Day + "日目";
         UpdatePlaceText(playerData.CurrentPlace);
-        UpdateMoneyText(playerData.Money);
+        UpdateMoneyText();
         staminaText.text = "スタミナ：" + playerData.Stamina + " / " + playerData.MaxStamina;
     }
 }

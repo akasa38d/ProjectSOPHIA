@@ -18,6 +18,11 @@ public class Atelier : Facility
 public class Ateller_Storage : FacilityAct
 {
     public Ateller_Storage() { Name = "収納"; }
+
+    public override void Action()
+    {
+        AdvPartManager.Instance.startUpAtelierStorage();
+    }
 }
 
 public class Atelier_Alchemy : FacilityAct

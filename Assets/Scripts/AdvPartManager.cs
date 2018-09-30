@@ -47,12 +47,9 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         if (acts.Count() == 0)
         {
             var textFile = Resources.Load(fileName).ToString();
-            if(itemSet == null)
-            {
-                itemSet = Instantiate(TownTalkSet);
-                itemSet.transform.SetParent(AdvCanvas.transform, false);
-            }
-            textActList.Add(new MultiTextAct(textFile, itemSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp) { Name = fileName });
+            var prefabsSet = Instantiate(TownTalkSet);
+            prefabsSet.transform.SetParent(AdvCanvas.transform, false);
+            textActList.Add(new MultiTextAct(textFile, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp) { Name = fileName });
         }
         return acts.Last();
     }
@@ -63,9 +60,9 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "TownBase";
         if (getAct(name) == null)
         {
-            var gameObject = Instantiate(TownBaseSet);
-            gameObject.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new TownBaseAct(name, gameObject.GetComponent<TownBaseSet>()));
+            var prefabsSet = Instantiate(TownBaseSet);
+            prefabsSet.transform.SetParent(AdvCanvas.transform, false);
+            actList.Add(new TownBaseAct(name, prefabsSet.GetComponent<TownBaseSet>()));
         }
         townBaseAct = getAct(name);
         townBaseAct.StartUp();
@@ -99,16 +96,21 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         townBaseAct.Close();
     }
 
-    /*
+
     public void startUpAtelierStorage()
     {
         var name = "AtelierStorage";
         if(getAct(name) == null)
         {
-//            var gameObject = Instantiate()
+            var prefabsSet = Instantiate(CoffeeRequestSet);
+            prefabsSet.transform.SetParent(AdvCanvas.transform, false);
+            actList.Add(new AttelierStorageAct(name, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp, (TownBaseAct)townBaseAct));
         }
+        getAct(name).StartUp();
+        AdvUIManager.Instance.UpdateText();
+        townBaseAct.Close();
     }
-    */
+
 
     public void StartUpCoffeeRequest()
     {
@@ -130,9 +132,12 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketPurchase";
         if (getAct(name) == null)
         {
-            var gameObject = Instantiate(MarketPurchaseSet);
-            gameObject.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new MarketPurchaseAct(name, gameObject.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp));
+            if (itemSet == null)
+            {
+                itemSet = Instantiate(ItemSetPrefabs);
+                itemSet.transform.SetParent(AdvCanvas.transform, false);
+            }
+            actList.Add(new MarketPurchaseAct(name, itemSet.GetComponent<ItemSet>(), townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         AdvUIManager.Instance.UpdateText();
@@ -145,9 +150,12 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketSell";
         if (getAct(name) == null)
         {
-            var gameObject = Instantiate(ItemSetPrefabs);
-            gameObject.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new MarketSellAct(name, gameObject.GetComponent<ItemSet>(), townBaseAct.StartUp));
+            if (itemSet == null)
+            {
+                itemSet = Instantiate(ItemSetPrefabs);
+                itemSet.transform.SetParent(AdvCanvas.transform, false);
+            }  
+            actList.Add(new MarketSellAct(name, itemSet.GetComponent<ItemSet>(), townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         AdvUIManager.Instance.UpdateText();

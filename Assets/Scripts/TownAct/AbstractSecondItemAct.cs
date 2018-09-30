@@ -18,16 +18,9 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     public AbstractSecondItemAct(string name, ItemSet iSet, Exec exec)
     {
-        //名前の設定
         Name = name;
-
-        //オブジェクトの設定
         itemSet = iSet;
-
-        //デリゲートの設定
         ReturnAct = exec;
-
-        //リストのロード
         loadObjects();
     }
 
@@ -45,6 +38,19 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
         //UI初期位置
         selectObject(itemIterator.UINow);
+    }
+
+    protected virtual void simpleStartUp()
+    {
+        itemIterator.ResetInnerMax(objects.Count + 1);
+
+        //UIの表示
+        LayoutObjects();
+
+        //UI初期位置
+        selectObject(itemIterator.UINow);
+
+        AdvUIManager.Instance.UpdateMoneyText();
     }
 
     public virtual void LayoutObjects()
@@ -110,7 +116,6 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
             {
                 itemSet.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
             }
-
             else if (itemSet.Buttons[i].activeSelf == true)
             {
                 itemSet.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
@@ -151,7 +156,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
             {
                 Action();
             }
-            if (innerNow == innerMax - 1)
+            else if (innerNow == innerMax - 1)
             {
                 Close();
             }

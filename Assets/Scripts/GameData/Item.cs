@@ -45,7 +45,7 @@ public class ItemBase
     //効果量（品質・特性に依存）
     public int Value;
 
-    //価格（品質・特性に依存）
+    //価格（品質・特性に依存）売値と買値分ける？
     public int Price;
 
     //品質

@@ -81,7 +81,7 @@ public class ItemIterator<T>
 
     //カーソルの位置
     public int UINow { private set; get; }
-    public int UIMax { private set; get; }
+    public int UIMax { get { return InnerMax - SlideNow * ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax; } }
 
     //ボタンの最大数
     public int ButtonMax { private set; get; }
@@ -100,13 +100,12 @@ public class ItemIterator<T>
         itemAct = act;
         InnerMax = innerMax;
         ButtonMax = buttonMax;
-        UIMax = InnerMax < ButtonMax ? InnerMax : ButtonMax;
         SlideMax = InnerMax < ButtonMax ? 0 : (InnerMax - ButtonMax - 1) / ColumnCount + 1;
-        Debug.Log(SlideMax + " : SlideMax");
-        Debug.Log(ButtonMax + " : ButtonMax");
-        Debug.Log(InnerMax + " : InnerMax");
-        Debug.Log(UIMax + " : UIMax");
-        Debug.Log(itemAct.Name);
+    }
+
+    public void ResetInnerMax(int innerMax)
+    {
+        InnerMax = innerMax;
     }
 
     public void Up()
@@ -117,7 +116,6 @@ public class ItemIterator<T>
             else
             {
                 SlideNow--;
-                UIMax = InnerMax - SlideNow + ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax;
                 itemAct.LayoutObjects();
             }
         }
@@ -131,7 +129,6 @@ public class ItemIterator<T>
             else
             {
                 SlideNow++;
-                UIMax = InnerMax - SlideNow * ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax;
                 itemAct.LayoutObjects();
             }
         }
@@ -139,7 +136,6 @@ public class ItemIterator<T>
         {
             UINow -= ColumnCount;
             SlideNow++;
-            UIMax = InnerMax - SlideNow * ColumnCount < ButtonMax ? InnerMax - SlideNow * ColumnCount : ButtonMax;
             itemAct.LayoutObjects();
         }
     }

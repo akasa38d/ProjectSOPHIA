@@ -28,7 +28,7 @@ public class PlayerDataManager : SingletonMonoBehaviour<PlayerDataManager>
     //保管庫アイテム限界（成長有り）
     public int ItemStorageSize = 120;
     //保管庫のアイテム（仮）
-    public ItemBase[] ItemStorage = new ItemBase[180];
+    public List<ItemBase> ItemStorage = new List<ItemBase>();
 
     new void Awake()
     {
