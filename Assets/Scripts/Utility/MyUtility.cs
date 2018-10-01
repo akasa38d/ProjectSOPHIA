@@ -24,23 +24,32 @@ namespace MyUtility
 
     public static class Util
     {
-        public static void Range(ref int now, int min, int max)
+        public static int Range(int now, int min, int max)
         {
-            if (now > max) { now = max; }
-            if (now < min) { now = min; }
+            if (now > max) { return max; }
+            if (now < min) { return min; }
+            return now;
         }
 
-        public static void Range(ref int now, int min, int max, int value)
+        public static int Range(int now, int min, int max, int value)
         {
-            if (now + value > max) { now = max; }
-            else if (now + value < min) { now = min; }
-            else { now += value; }
+            if (now + value > max) { return max; }
+            if (now + value < min) { return min; }
+            return now + value;
         }
 
-        public static void Roop(ref int now, int min, int max)
+        public static int Roop(int now, int min, int max)
         {
-            if (now > max) { now = min; }
-            if (now < min) { now = max; }
+            if (now > max) { return min; }
+            if (now < min) { return max; }
+            return now;
+        }
+
+        public static int Roop(int now, int min, int max, int value)
+        {
+            if (now + value > max) { return min; }
+            if (now + value < min) { return max; }
+            return now + value;
         }
     }
 }

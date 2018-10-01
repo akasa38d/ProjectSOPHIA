@@ -13,6 +13,7 @@ public class DateData
         checkWeek();
         checkMonth();
         checkYear();
+        FrameUIManager.Instance.UpdateDate();
     }
 
     void checkWeek()

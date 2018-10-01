@@ -36,7 +36,7 @@ public class MultiTextAct : AbstractTextAct
     public override void Close()
     {
         //メッセージを消す
-        AdvUIManager.Instance.UpdateMessageText("", "");
+        FrameUIManager.Instance.UpdateMessageText("", "");
 
         //UIを消す
         closePeople();
@@ -49,7 +49,7 @@ public class MultiTextAct : AbstractTextAct
     {
         if (textIterator == 0) { closePeople(); }
 
-        AdvUIManager.Instance.UpdateMessageText(textData.TestChains[person].TextBoxChain[iterator].Person, textData.TestChains[person].TextBoxChain[iterator].Message);
+        FrameUIManager.Instance.UpdateMessageText(textData.TestChains[person].TextBoxChain[iterator].Person, textData.TestChains[person].TextBoxChain[iterator].Message);
         //画像変更や音声系の処理もここに入れる
         textIterator++;
     }
@@ -79,7 +79,7 @@ public class MultiTextAct : AbstractTextAct
     void selectPeople(int number)
     {
         textIterator = 0;
-        AdvUIManager.Instance.UpdateMessageText("", "誰の話を聞く？");
+        FrameUIManager.Instance.UpdateMessageText("", "誰の話を聞く？");
 
         for (int i = 0; i < groupNumber + 1; i++)
         {

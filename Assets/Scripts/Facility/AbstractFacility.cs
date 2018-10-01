@@ -25,7 +25,7 @@ public abstract class FacilityAct
 
     public void FinishDay()
     {
-        PlayerDataManager.Instance.currentDate.EndDay();
+        PlayerDataManager.Instance.CurrentDate.EndDay();
         //暗くなる処理を入れたい
     }
 }

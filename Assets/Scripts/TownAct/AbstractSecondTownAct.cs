@@ -56,6 +56,9 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
     public override void Close()
     {
+        //メッセージを消す
+        FrameUIManager.Instance.UpdateMessageText("", "");
+
         SimpleClose();
 
         //返還
@@ -64,9 +67,6 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
     public override void SimpleClose()
     {
-        //メッセージを消す
-        AdvUIManager.Instance.UpdateMessageText("", "");
-
         //UIを消す
         if (prefabsSet.Window != null)
         {

@@ -45,7 +45,7 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
 
     protected override void selectObject(int count)
     {
-        AdvUIManager.Instance.UpdateMessageText("", "誰を雇う？");
+        FrameUIManager.Instance.UpdateMessageText("", "誰を雇う？");
 
         base.selectObject(count);
 

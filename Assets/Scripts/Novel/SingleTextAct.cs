@@ -40,7 +40,7 @@ public class SingleTextAct : AbstractTextAct
 
     void openTextBox(int iterator)
     {
-        AdvUIManager.Instance.UpdateMessageText(textChain[iterator].Person, textChain[iterator].Message);
+        FrameUIManager.Instance.UpdateMessageText(textChain[iterator].Person, textChain[iterator].Message);
         //画像変更や音声系の処理もここに入れる
         textIterator++;
     }

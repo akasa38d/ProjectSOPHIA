@@ -50,10 +50,7 @@ public class TownBaseAct : AbstractTownAct
 
     public void OpenImage()
     {
-        if (townBaseSet.FacilityImage.activeSelf == false)
-        {
-            townBaseSet.FacilityImage.SetActive(true);
-        }
+        townBaseSet.FacilityImage.SetActive(true);
     }
 
     //施設の移動（準備）
@@ -62,8 +59,8 @@ public class TownBaseAct : AbstractTownAct
         //現在地！＝移動先なら
         if (advIterator.TempFacility != advIterator.Facility)
         {
+            FrameUIManager.Instance.UpdateMessageText("", "移動する？");
             Close();
-            AdvUIManager.Instance.UpdateMessageText("", "移動する？");
         }
         //現在地＝＝移動先なら
         else
@@ -80,9 +77,7 @@ public class TownBaseAct : AbstractTownAct
         var facility = Facilities[facilityNumber];
 
         //施設からテキストを取得
-        List<TextBox> textBoxes;
-        if (facility.firstFlag == false) { textBoxes = facility.welcomeFirst; }
-        else { textBoxes = facility.welcomeNext; }
+        var textBoxes = facility.firstFlag == false ? facility.welcomeFirst : facility.welcomeNext;
 
         //取得したテキストからメッセージを作成
         var proxyText = new SingleTextAct(textBoxes, () =>
@@ -95,7 +90,6 @@ public class TownBaseAct : AbstractTownAct
 
         proxyText.StartUp();
         PlayerDataManager.Instance.CurrentPlace = facility.Name;
-        AdvUIManager.Instance.UpdatePlaceText(PlayerDataManager.Instance.CurrentPlace);
     }
 
     //施設の移動（確定）
@@ -116,8 +110,7 @@ public class TownBaseAct : AbstractTownAct
         }
 
         PlayerDataManager.Instance.CurrentPlace = facility.Name;
-        AdvUIManager.Instance.UpdatePlaceText(PlayerDataManager.Instance.CurrentPlace);
-        AdvUIManager.Instance.UpdateMessageText("", "何をしようか？");
+        FrameUIManager.Instance.UpdateMessageText("", "何をしようか？");
     }
 
     //行動選択アニメーター

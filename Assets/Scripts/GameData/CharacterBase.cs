@@ -43,8 +43,8 @@ public abstract class AbstractCharacterParameter
         get { return hp; }
         set
         {
-            hp += value;
-            Util.Range(ref hp, 0, MaxHP);
+            hp = value;
+            hp = Util.Range(hp, 0, MaxHP);
         }
     }
 
@@ -56,11 +56,11 @@ public abstract class AbstractCharacterParameter
     int sp;
     public int SP
     {
-        get { return hp; }
+        get { return sp; }
         set
         {
-            sp += value;
-            Util.Range(ref sp, 0, MaxSP);
+            sp = value;
+            sp = Util.Range(sp, 0, MaxSP);
         }
     }
 

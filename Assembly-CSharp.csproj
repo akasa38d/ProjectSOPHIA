@@ -61,7 +61,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AdvPartManager.cs" />
-    <Compile Include="Assets\Scripts\AdvUIManager.cs" />
     <Compile Include="Assets\Scripts\ButtonUI.cs" />
     <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\DataBaseManager.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="Assets\Scripts\Facility\CoffeeHouseFacility.cs" />
     <Compile Include="Assets\Scripts\Facility\DungeonFacility.cs" />
     <Compile Include="Assets\Scripts\Facility\MarketFacility.cs" />
+    <Compile Include="Assets\Scripts\FrameUIManager.cs" />
     <Compile Include="Assets\Scripts\GameData\CharacterBase.cs" />
     <Compile Include="Assets\Scripts\GameData\DateData.cs" />
     <Compile Include="Assets\Scripts\GameData\DungeonData.cs" />

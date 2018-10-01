@@ -20,7 +20,7 @@ public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
 
     protected override void selectObject(int uiCount)
     {
-        AdvUIManager.Instance.UpdateMessageText("", "何を買おうか？");
+        FrameUIManager.Instance.UpdateMessageText("", "何を買おうか？");
 
         base.selectObject(uiCount);
 
@@ -48,11 +48,11 @@ public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
         var playerData = PlayerDataManager.Instance;
         if (playerData.Money < objects[innerNow].Price)
         {
-            AdvUIManager.Instance.UpdateMessageText("", "お金が足りない……");
+            FrameUIManager.Instance.UpdateMessageText("", "お金が足りない……");
         }
         else if (playerData.Items.Count >= playerData.ItemsSize)
         {
-            AdvUIManager.Instance.UpdateMessageText("", "これ以上持てない……");
+            FrameUIManager.Instance.UpdateMessageText("", "これ以上持てない……");
         }
         else
         {
@@ -75,7 +75,7 @@ public class MarketSellAct : AbstractSecondItemAct<MarketSellAct>
 
     protected override void selectObject(int uiCount)
     {
-        AdvUIManager.Instance.UpdateMessageText("", "何を売ろうか？");
+        FrameUIManager.Instance.UpdateMessageText("", "何を売ろうか？");
 
         base.selectObject(uiCount);
 

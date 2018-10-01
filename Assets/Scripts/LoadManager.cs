@@ -8,7 +8,7 @@ public static class LoadManager
     public static void LoadPlayerDataAwake()
     {
         var playerDataManager = PlayerDataManager.Instance;
-        playerDataManager.currentDate = new DateData { Year = 1, Month = 1, Week = 2, Day = 3 };
+        playerDataManager.CurrentDate = new DateData { Year = 1, Month = 1, Week = 2, Day = 3 };
         playerDataManager.CurrentPlace = "こんなところ";
         playerDataManager.Money = 1200;
         playerDataManager.Stamina = 50;

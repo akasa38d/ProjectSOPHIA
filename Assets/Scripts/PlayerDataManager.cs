@@ -4,18 +4,56 @@ public class PlayerDataManager : SingletonMonoBehaviour<PlayerDataManager>
 {
     //現在の日付・場所
     public DateData currentDate;
-    public string CurrentPlace;
+    public DateData CurrentDate
+    {
+        set
+        {
+            currentDate = value;
+            FrameUIManager.Instance.UpdateDate();
+        }
+        get { return currentDate; }
+    }
+
+    string currentPlace;
+    public string CurrentPlace
+    {
+        set
+        {
+            currentPlace = value;
+            FrameUIManager.Instance.UpdatePlaceText();
+        }
+        get { return currentPlace; }
+    }
 
     //パラメーター（遅延取得OK?、LVごとの数値をデータベースで保存）
-    public PlayerParameter Parameter;    
+    public PlayerParameter Parameter;
 
     //スタミナ限界
     public int MaxStamina = 100;
     //スタミナ（探索時はMaxSPに変換される）
-    public int Stamina;
+    public int stamina;
+    public int Stamina
+    {
+        set
+        {
+            stamina = value;
+            FrameUIManager.Instance.UpdateStamina();
+        }
+        get { return stamina; }
+    }
 
     //手持ちの金
-    public int Money;
+    int money;
+    public int Money
+    {
+        set
+        {
+            money = value;
+            FrameUIManager.Instance.UpdateMoneyText();
+        }
+        get { return money; }
+    }
+
     //貯金
     public int MoneySaving;
 

@@ -51,7 +51,7 @@ public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
 
     protected override void selectObject(int count)
     {
-        AdvUIManager.Instance.UpdateMessageText("", "どうする？");
+        FrameUIManager.Instance.UpdateMessageText("", "どうする？");
         base.selectObject(count);
     }
 
@@ -103,7 +103,7 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
 
     protected override void selectObject(int uiCount)
     {
-        AdvUIManager.Instance.UpdateMessageText("", "何をしまう？");
+        FrameUIManager.Instance.UpdateMessageText("", "何をしまう？");
 
         base.selectObject(uiCount);
 
@@ -154,7 +154,7 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePutAct>
 
     protected override void selectObject(int uiCount)
     {
-        AdvUIManager.Instance.UpdateMessageText("", "何を持っていく？");
+        FrameUIManager.Instance.UpdateMessageText("", "何を持っていく？");
 
         base.selectObject(uiCount);
 

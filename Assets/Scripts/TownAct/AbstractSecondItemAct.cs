@@ -49,8 +49,6 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
         //UI初期位置
         selectObject(itemIterator.UINow);
-
-        AdvUIManager.Instance.UpdateMoneyText();
     }
 
     public virtual void LayoutObjects()
@@ -86,7 +84,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
     public override void Close()
     {
         //メッセージを消す
-        AdvUIManager.Instance.UpdateMessageText("", "");
+        FrameUIManager.Instance.UpdateMessageText("", "");
 
         //UIを消す
         if (itemSet.Window != null)

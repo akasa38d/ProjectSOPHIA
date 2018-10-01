@@ -38,8 +38,7 @@ public class Atelier_Rest : FacilityAct
     {
         int value = 20;
         var playerData = PlayerDataManager.Instance;
-        Util.Range(ref playerData.Stamina, 0, playerData.MaxStamina, value);
-        AdvUIManager.Instance.UpdateText();
+        playerData.Stamina = Util.Range(playerData.Stamina, 0, playerData.MaxStamina, value);
         FinishDay();
     }
 }

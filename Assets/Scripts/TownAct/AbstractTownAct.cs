@@ -14,14 +14,18 @@ public abstract class AbstractTownAct
     public virtual void StartUp()
     {
         AdvPartManager.Instance.CurrentAct = this;
-        Debug.Log(AdvPartManager.Instance.CurrentAct.Name);
     }
 
     //非表示
     public virtual void Close() { }
+    //固有の画像を非表示
     public virtual void CloseImage() { }
+    //ReturnActを伴わない非表示
     public virtual void SimpleClose() { }
 
     //制御
     public virtual void Update() { }
+
+    //1日終了時のリフレッシュ処理（未実装）
+    public virtual void Refresh() { }
 }

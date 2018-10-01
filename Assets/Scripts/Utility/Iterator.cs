@@ -14,7 +14,7 @@ public class TownBaseIterator
         set
         {
             tempFacility = value;
-            Util.Roop(ref tempFacility, 0, maxFacility - 1);
+            tempFacility = Util.Roop(tempFacility, 0, maxFacility - 1);
         }
         get { return tempFacility; }
     }
@@ -25,7 +25,7 @@ public class TownBaseIterator
         set
         {
             facilityAct = value;
-            Util.Roop(ref facilityAct, 0, maxFacilityAct[Facility] - 1);
+            facilityAct = Util.Roop(facilityAct, 0, maxFacilityAct[Facility] - 1);
         }
         get { return facilityAct; }
     }
@@ -56,7 +56,7 @@ public class SingleIterator
         set
         {
             count = value;
-            Util.Roop(ref count, 0, maxNumber - 1);
+            count = Util.Roop(count, 0, maxNumber - 1);
         }
 
         get { return count; }
