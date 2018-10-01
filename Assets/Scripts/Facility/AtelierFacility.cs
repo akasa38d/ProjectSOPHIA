@@ -21,7 +21,7 @@ public class Ateller_Storage : FacilityAct
 
     public override void Action()
     {
-        AdvPartManager.Instance.startUpAtelierStorage();
+        AdvPartManager.Instance.StartUpAtelierStorage();
     }
 }
 

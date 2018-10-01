@@ -56,6 +56,14 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
     public override void Close()
     {
+        SimpleClose();
+
+        //返還
+        ReturnAct();
+    }
+
+    public override void SimpleClose()
+    {
         //メッセージを消す
         AdvUIManager.Instance.UpdateMessageText("", "");
 
@@ -72,9 +80,6 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
         //イテレーターをリセット
         singleIterator.ResetCount();
-
-        //返還
-        ReturnAct();
     }
 
     protected virtual void selectObject(int count)

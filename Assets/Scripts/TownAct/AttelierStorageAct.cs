@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,16 +7,17 @@ public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
 {
     TownBaseAct townBaseAct;
 
-    public AttelierStorageAct(string name, UIPrefabsSet pSet, Exec exec, TownBaseAct tbAct) : base(name, pSet, exec) { townBaseAct = tbAct; }
+    public AttelierStorageAct(string name, UIPrefabsSet pSet, Exec exec, TownBaseAct tbAct) : base(name, pSet, exec)
+    {
+        townBaseAct = tbAct;
+    }
 
     protected override void loadObjects()
     {
         objects = new List<AStorageAct>();
-        objects.Add(new PutItem());
-        objects.Add(new PullItem());
+        objects.Add(new PutItem(StartUp));
+        objects.Add(new PullItem(StartUp));
     }
-
-    public override void StartUp() { base.StartUp(); }
 
     protected override void layoutObjects()
     {
@@ -41,17 +43,15 @@ public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
         }
     }
 
-    public override void Close() { base.Close(); }
-
-    public override void CloseImage()
+    public override void SimpleClose()
     {
         townBaseAct.CloseImage();
+        base.SimpleClose();
     }
 
     protected override void selectObject(int count)
     {
         AdvUIManager.Instance.UpdateMessageText("", "どうする？");
-
         base.selectObject(count);
     }
 
@@ -73,9 +73,10 @@ public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
         //決定
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if(singleIterator.Count < objects.Count)
+            if (singleIterator.Count < objects.Count)
             {
                 objects[singleIterator.Count].Action();
+                SimpleClose();
             }
             if (singleIterator.Count == objects.Count)
             {
@@ -91,32 +92,137 @@ public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
     }
 }
 
+public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
+{
+    public AStoragePutAct(string name, ItemSet iSet, Exec exec) : base(name, iSet, exec) { }
+
+    protected override void loadObjects()
+    {
+        objects = PlayerDataManager.Instance.Items;
+    }
+
+    protected override void selectObject(int uiCount)
+    {
+        AdvUIManager.Instance.UpdateMessageText("", "何をしまう？");
+
+        base.selectObject(uiCount);
+
+        //アイテムの説明更新
+        if (uiCount + slideNow * columnCount < innerMax - 1)
+        {
+            itemSet.Window.SetActive(true);
+
+            var description
+                = objects[uiCount + slideNow * columnCount].Name + "\n"
+                + objects[uiCount + slideNow * columnCount].Description;
+            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = description;
+        }
+
+        if (uiCount + slideNow * columnCount == innerMax - 1)
+        {
+            itemSet.Window.SetActive(false);
+            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+        }
+    }
+
+    public override void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            objects.Sort((a, b) => a.ID - b.ID);
+            simpleStartUp();
+        }
+        base.Update();
+    }
+
+    public override void Action()
+    {
+        PlayerDataManager.Instance.ItemStorage.Add(objects[innerNow]);
+        objects.RemoveAt(innerNow);
+        simpleStartUp();
+    }
+}
+
+public class AStoragePullAct : AbstractSecondItemAct<AStoragePutAct>
+{
+    public AStoragePullAct(string name, ItemSet iSet, Exec exec) : base(name, iSet, exec) { }
+
+    protected override void loadObjects()
+    {
+        objects = PlayerDataManager.Instance.ItemStorage;
+    }
+
+    protected override void selectObject(int uiCount)
+    {
+        AdvUIManager.Instance.UpdateMessageText("", "何を持っていく？");
+
+        base.selectObject(uiCount);
+
+        //アイテムの説明更新
+        if (uiCount + slideNow * columnCount < innerMax - 1)
+        {
+            itemSet.Window.SetActive(true);
+
+            var description
+                = objects[uiCount + slideNow * columnCount].Name + "\n"
+                + objects[uiCount + slideNow * columnCount].Description;
+            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = description;
+        }
+
+        if (uiCount + slideNow * columnCount == innerMax - 1)
+        {
+            itemSet.Window.SetActive(false);
+            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+        }
+    }
+
+    public override void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            objects.Sort((a, b) => a.ID - b.ID);
+            simpleStartUp();
+        }
+        base.Update();
+    }
+
+    public override void Action()
+    {
+        PlayerDataManager.Instance.Items.Add(objects[innerNow]);
+        objects.RemoveAt(innerNow);
+        simpleStartUp();
+    }
+}
+
 public abstract class AStorageAct
 {
     public string Name;
+    public delegate void Exec();
+    public Exec ReturnAct;
+    public AStorageAct(Exec exec) { ReturnAct = exec; }
     public virtual void Action() { Debug.Log("未実装です"); }
 }
 
 public class PutItem : AStorageAct
 {
-    public PutItem()
+    public PutItem(Exec exec) : base(exec)
     {
         Name = "PutItemAct";
     }
     public override void Action()
     {
-        base.Action();
+        AdvPartManager.Instance.StartUpAtelierStoragePut(() => { ReturnAct(); });
     }
 }
 
 public class PullItem : AStorageAct
 {
-    public PullItem()
+    public PullItem(Exec exec) : base(exec)
     {
         Name = "PullItemAct";
     }
     public override void Action()
     {
-        base.Action();
+        AdvPartManager.Instance.StartUpAtelierStoragePull(() => { ReturnAct(); });
     }
 }

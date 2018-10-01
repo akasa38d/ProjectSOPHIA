@@ -18,6 +18,15 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     [SerializeField]
     GameObject ItemSetPrefabs;
     GameObject itemSet;
+    GameObject getItemSet()
+    {
+        if (itemSet == null)
+        {
+            itemSet = Instantiate(ItemSetPrefabs);
+            itemSet.transform.SetParent(AdvCanvas.transform, false);
+        }
+        return itemSet;
+    }
 
     //キャンバス
     [SerializeField]
@@ -97,7 +106,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     }
 
 
-    public void startUpAtelierStorage()
+    public void StartUpAtelierStorage()
     {
         var name = "AtelierStorage";
         if(getAct(name) == null)
@@ -111,6 +120,31 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         townBaseAct.Close();
     }
 
+    
+    public void StartUpAtelierStoragePut(AbstractTownAct.Exec exec)
+    {
+        var name = "AtelierStoragePut";
+        if(getAct(name) == null)
+        {
+            actList.Add(new AStoragePutAct(name, getItemSet().GetComponent<ItemSet>(), exec));
+        }
+        CurrentAct.SimpleClose();
+        getAct(name).StartUp();
+        AdvUIManager.Instance.UpdateText();
+    }
+    
+    public void StartUpAtelierStoragePull(AbstractTownAct.Exec exec)
+    {
+        var name = "AtelierStoragePull";
+        if(getAct(name) == null)
+        {
+            actList.Add(new AStoragePullAct(name, getItemSet().GetComponent<ItemSet>(), exec));
+        }
+        CurrentAct.SimpleClose();
+        getAct(name).StartUp();
+        AdvUIManager.Instance.UpdateText();
+
+    }
 
     public void StartUpCoffeeRequest()
     {
@@ -132,12 +166,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketPurchase";
         if (getAct(name) == null)
         {
-            if (itemSet == null)
-            {
-                itemSet = Instantiate(ItemSetPrefabs);
-                itemSet.transform.SetParent(AdvCanvas.transform, false);
-            }
-            actList.Add(new MarketPurchaseAct(name, itemSet.GetComponent<ItemSet>(), townBaseAct.StartUp));
+            actList.Add(new MarketPurchaseAct(name, getItemSet().GetComponent<ItemSet>(), townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         AdvUIManager.Instance.UpdateText();
@@ -150,12 +179,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketSell";
         if (getAct(name) == null)
         {
-            if (itemSet == null)
-            {
-                itemSet = Instantiate(ItemSetPrefabs);
-                itemSet.transform.SetParent(AdvCanvas.transform, false);
-            }  
-            actList.Add(new MarketSellAct(name, itemSet.GetComponent<ItemSet>(), townBaseAct.StartUp));
+            actList.Add(new MarketSellAct(name, getItemSet().GetComponent<ItemSet>(), townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         AdvUIManager.Instance.UpdateText();

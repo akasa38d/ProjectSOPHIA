@@ -19,9 +19,8 @@ public abstract class AbstractTownAct
 
     //非表示
     public virtual void Close() { }
-
-    //イメージの非表示（仮）
     public virtual void CloseImage() { }
+    public virtual void SimpleClose() { }
 
     //制御
     public virtual void Update() { }

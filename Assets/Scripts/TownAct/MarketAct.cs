@@ -98,10 +98,19 @@ public class MarketSellAct : AbstractSecondItemAct<MarketSellAct>
         }
     }
 
+    public override void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            objects.Sort((a, b) => a.ID - b.ID);
+            simpleStartUp();
+        }
+        base.Update();
+    }
+
     public override void Action()
     {
-        var playerData = PlayerDataManager.Instance;
-        playerData.Money += objects[innerNow].Price / 2;
+        PlayerDataManager.Instance.Money += objects[innerNow].Price / 2;
         objects.RemoveAt(innerNow);
         simpleStartUp();
     }

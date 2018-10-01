@@ -67,7 +67,6 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
         {
             itemSet.Buttons[i].SetActive(true);
 
-            //後でプロパティを設定
             if (i + slideNow * columnCount < innerMax - 1)
             {
                 itemSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i + slideNow * columnCount].Name;
