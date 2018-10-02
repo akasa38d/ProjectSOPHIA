@@ -8,9 +8,13 @@ public class Controller : SingletonMonoBehaviour<Controller>
     public bool[] CatchButtonsEnter = new bool[CatchButtonsCount];
     public bool[] CatchButtonsDown = new bool[CatchButtonsCount];
 
+    public delegate void Exec();
+    Exec controlUpdate;
+    public Exec SetControlUpdate { set { controlUpdate = value; } }
+
     public void Update()
     {
-        AdvPartManager.Instance.CurrentAct.Update();
+        controlUpdate();
 
         for (int i = 0; i < CatchButtonsCount; i++)
         {

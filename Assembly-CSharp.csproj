@@ -78,12 +78,15 @@
     <Compile Include="Assets\Scripts\GameData\RunnerData.cs" />
     <Compile Include="Assets\Scripts\GameData\TrapData.cs" />
     <Compile Include="Assets\Scripts\LoadManager.cs" />
+    <Compile Include="Assets\Scripts\Menu\AbstractMenuAct.cs" />
+    <Compile Include="Assets\Scripts\Menu\MenuManager.cs" />
     <Compile Include="Assets\Scripts\Novel\AbstractTextAct.cs" />
     <Compile Include="Assets\Scripts\Novel\MultiTextAct.cs" />
     <Compile Include="Assets\Scripts\Novel\SingleTextAct.cs" />
     <Compile Include="Assets\Scripts\Novel\TextBox.cs" />
     <Compile Include="Assets\Scripts\Novel\TextlData.cs" />
     <Compile Include="Assets\Scripts\PlayerDataManager.cs" />
+    <Compile Include="Assets\Scripts\PrefabsManager.cs" />
     <Compile Include="Assets\Scripts\TownAct\AbstractSecondItemAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\AbstractSecondTownAct.cs" />
     <Compile Include="Assets\Scripts\TownAct\AbstractTownAct.cs" />

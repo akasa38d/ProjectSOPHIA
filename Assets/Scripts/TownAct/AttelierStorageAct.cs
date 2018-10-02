@@ -1,11 +1,44 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
+public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStorageAct>
 {
     TownBaseAct townBaseAct;
+
+    public abstract class AStorageAct
+    {
+        public string Name;
+        public delegate void Exec();
+        public Exec ReturnAct;
+        public AStorageAct(Exec exec) { ReturnAct = exec; }
+        public virtual void Action() { Debug.Log("未実装です"); }
+    }
+
+    public class PutItem : AStorageAct
+    {
+        public PutItem(Exec exec) : base(exec)
+        {
+            Name = "PutItemAct";
+        }
+        public override void Action()
+        {
+            AdvPartManager.Instance.StartUpAtelierStoragePut(() => { ReturnAct(); });
+        }
+    }
+
+    public class PullItem : AStorageAct
+    {
+        public PullItem(Exec exec) : base(exec)
+        {
+            Name = "PullItemAct";
+        }
+        public override void Action()
+        {
+            AdvPartManager.Instance.StartUpAtelierStoragePull(() => { ReturnAct(); });
+        }
+    }
+
 
     public AttelierStorageAct(string name, UIPrefabsSet pSet, Exec exec, TownBaseAct tbAct) : base(name, pSet, exec)
     {
@@ -94,11 +127,19 @@ public class AttelierStorageAct : AbstractSecondTownAct<AStorageAct>
 
 public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
 {
-    public AStoragePutAct(string name, ItemSet iSet, Exec exec) : base(name, iSet, exec) { }
+    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+
+    public AStoragePutAct(string name, Exec exec) : base(name, exec) { }
 
     protected override void loadObjects()
     {
         objects = PlayerDataManager.Instance.Items;
+    }
+
+    public override void Close()
+    {
+        itemDescription.SetActive(false);
+        base.Close();
     }
 
     protected override void selectObject(int uiCount)
@@ -110,18 +151,18 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
         //アイテムの説明更新
         if (uiCount + slideNow * columnCount < innerMax - 1)
         {
-            itemSet.Window.SetActive(true);
+            itemDescription.SetActive(true);
 
             var description
                 = objects[uiCount + slideNow * columnCount].Name + "\n"
                 + objects[uiCount + slideNow * columnCount].Description;
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = description;
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = description;
         }
 
         if (uiCount + slideNow * columnCount == innerMax - 1)
         {
-            itemSet.Window.SetActive(false);
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+            itemDescription.SetActive(false);
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 
@@ -143,13 +184,21 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
     }
 }
 
-public class AStoragePullAct : AbstractSecondItemAct<AStoragePutAct>
+public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
 {
-    public AStoragePullAct(string name, ItemSet iSet, Exec exec) : base(name, iSet, exec) { }
+    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+
+    public AStoragePullAct(string name, Exec exec) : base(name, exec) { }
 
     protected override void loadObjects()
     {
         objects = PlayerDataManager.Instance.ItemStorage;
+    }
+
+    public override void Close()
+    {
+        itemDescription.SetActive(false);
+        base.Close();
     }
 
     protected override void selectObject(int uiCount)
@@ -161,18 +210,18 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePutAct>
         //アイテムの説明更新
         if (uiCount + slideNow * columnCount < innerMax - 1)
         {
-            itemSet.Window.SetActive(true);
+            itemDescription.SetActive(true);
 
             var description
                 = objects[uiCount + slideNow * columnCount].Name + "\n"
                 + objects[uiCount + slideNow * columnCount].Description;
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = description;
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = description;
         }
 
         if (uiCount + slideNow * columnCount == innerMax - 1)
         {
-            itemSet.Window.SetActive(false);
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+            itemDescription.SetActive(false);
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 
@@ -191,38 +240,5 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePutAct>
         PlayerDataManager.Instance.Items.Add(objects[innerNow]);
         objects.RemoveAt(innerNow);
         simpleStartUp();
-    }
-}
-
-public abstract class AStorageAct
-{
-    public string Name;
-    public delegate void Exec();
-    public Exec ReturnAct;
-    public AStorageAct(Exec exec) { ReturnAct = exec; }
-    public virtual void Action() { Debug.Log("未実装です"); }
-}
-
-public class PutItem : AStorageAct
-{
-    public PutItem(Exec exec) : base(exec)
-    {
-        Name = "PutItemAct";
-    }
-    public override void Action()
-    {
-        AdvPartManager.Instance.StartUpAtelierStoragePut(() => { ReturnAct(); });
-    }
-}
-
-public class PullItem : AStorageAct
-{
-    public PullItem(Exec exec) : base(exec)
-    {
-        Name = "PullItemAct";
-    }
-    public override void Action()
-    {
-        AdvPartManager.Instance.StartUpAtelierStoragePull(() => { ReturnAct(); });
     }
 }

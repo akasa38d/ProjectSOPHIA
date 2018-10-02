@@ -43,7 +43,7 @@ public class TownBaseAct : AbstractTownAct
         }
     }
 
-    public override void CloseImage()
+    public void CloseImage()
     {
         townBaseSet.FacilityImage.SetActive(false);
     }
@@ -127,6 +127,12 @@ public class TownBaseAct : AbstractTownAct
                 townBaseSet.FacilityButtons[i].GetComponent<Animator>().SetBool("IsSelect", false);
             }
         }
+    }
+
+    public override void Refresh()
+    {
+        base.Refresh();
+        foreach(var n in Facilities) { n.Refresh(); }
     }
 
     //コントロール

@@ -5,17 +5,25 @@ using UnityEngine.UI;
 
 public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
 {
-    public MarketPurchaseAct(string name, ItemSet iSet, Exec exec) : base(name, iSet, exec) { }
+    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+
+    public MarketPurchaseAct(string name, Exec exec) : base(name, exec) { }
 
     protected override void loadObjects()
     {
         //test
         objects = new List<ItemBase>();
-        var itemArray = new int[] { 0, 1, 2 };        
+        var itemArray = new int[] { 0, 1, 2 };
         foreach (var n in itemArray)
         {
             objects.Add(DataBaseManager.Instance.GetItemBase(n));
         }
+    }
+
+    public override void Close()
+    {
+        itemDescription.SetActive(false);
+        base.Close();
     }
 
     protected override void selectObject(int uiCount)
@@ -27,19 +35,19 @@ public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
         //アイテムの説明更新
         if (uiCount + slideNow * columnCount < innerMax - 1)
         {
-            itemSet.Window.SetActive(true);
+            itemDescription.SetActive(true);
 
             var description
                 = objects[uiCount + slideNow * columnCount].Name + "\n"
                 + objects[uiCount + slideNow * columnCount].Price + " M" + "\n"
                 + objects[uiCount + slideNow * columnCount].Description;
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = description;
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = description;
         }
 
         if (uiCount + slideNow * columnCount == innerMax - 1)
         {
-            itemSet.Window.SetActive(false);
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+            itemDescription.SetActive(false);
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 
@@ -62,15 +70,28 @@ public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
             simpleStartUp();
         }
     }
+
+    public override void Refresh()
+    {
+        loadObjects();
+    }
 }
 
 public class MarketSellAct : AbstractSecondItemAct<MarketSellAct>
 {
-    public MarketSellAct(string name, ItemSet iSet, Exec exec) : base(name, iSet, exec) { }
+    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+
+    public MarketSellAct(string name, Exec exec) : base(name, exec) { }
 
     protected override void loadObjects()
     {
         objects = PlayerDataManager.Instance.Items;
+    }
+
+    public override void Close()
+    {
+        itemDescription.SetActive(false);
+        base.Close();
     }
 
     protected override void selectObject(int uiCount)
@@ -82,19 +103,19 @@ public class MarketSellAct : AbstractSecondItemAct<MarketSellAct>
         //アイテムの説明更新
         if (uiCount + slideNow * columnCount < innerMax - 1)
         {
-            itemSet.Window.SetActive(true);
+            itemDescription.SetActive(true);
 
             var description
                 = objects[uiCount + slideNow * columnCount].Name + "\n"
                 + objects[uiCount + slideNow * columnCount].Price / 2 + " M" + "\n"
                 + objects[uiCount + slideNow * columnCount].Description;
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = description;
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = description;
         }
 
         if (uiCount + slideNow * columnCount == innerMax - 1)
         {
-            itemSet.Window.SetActive(false);
-            itemSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+            itemDescription.SetActive(false);
+            itemDescription.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 

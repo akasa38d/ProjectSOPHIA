@@ -5,5 +5,4 @@ using UnityEngine;
 public class DungeonData
 {
     public string Name;
-
 }

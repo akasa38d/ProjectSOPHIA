@@ -1,29 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using MyUtility;
+﻿using MyUtility;
 
-public class CharacterBase
+public abstract class CharacterBase
 {
     public string Name;
-    public int Level;
     public int MaxHP;
     public int MaxSP;
     public int Atk;
     public int Def;
     public int Spd;
     public int Exp;
+    public int NextExp;
     public int Money;
 }
 
 //CharacterBaseの補足
-public class PlayerBase
+public class PlayerBase : CharacterBase
 {
-    //装備とか？
+    public int Level;
 }
 
-public class EnemyBase
+public class EnemyBase : CharacterBase
 {
+    public int ID;
+    public int CommonDrop;
+    public Item CommonItem;
+    public int RareDrop;
+    public Item RareItem;
+
     public enum ActionType { Normal };
     public ActionType Act;
 }
@@ -33,8 +36,6 @@ public abstract class AbstractCharacterParameter
     protected CharacterBase characterBase;
 
     public string Name { get { return characterBase.Name; } }
-
-    public int Level { get { return characterBase.Level; } }
 
     public int MaxHP { get { return characterBase.MaxHP; } }
     int hp;
@@ -53,6 +54,7 @@ public abstract class AbstractCharacterParameter
         get { return characterBase.MaxSP; }
         set { characterBase.MaxSP = value; }
     }
+
     int sp;
     public int SP
     {
@@ -74,6 +76,8 @@ public abstract class AbstractCharacterParameter
 
 public class PlayerParameter : AbstractCharacterParameter
 {
+    public int LV;
+
     public PlayerParameter()
     {
         loadPlayerData();
@@ -81,7 +85,7 @@ public class PlayerParameter : AbstractCharacterParameter
 
     void loadPlayerData()
     {
-        characterBase = new CharacterBase();
+        characterBase = new PlayerBase();
         characterBase.MaxSP = 50;
     }
 

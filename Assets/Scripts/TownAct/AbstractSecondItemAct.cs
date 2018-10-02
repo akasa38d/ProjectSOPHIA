@@ -16,10 +16,10 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     protected List<ItemBase> objects;
 
-    public AbstractSecondItemAct(string name, ItemSet iSet, Exec exec)
+    public AbstractSecondItemAct(string name, Exec exec)
     {
         Name = name;
-        itemSet = iSet;
+        itemSet = AdvPartManager.Instance.GetItemSet.GetComponent<ItemSet>();
         ReturnAct = exec;
         loadObjects();
     }
@@ -53,8 +53,6 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     public virtual void LayoutObjects()
     {
-        itemSet.Window.SetActive(true);
-
         foreach (var n in itemSet.Buttons)
         {
             n.SetActive(false);
@@ -67,6 +65,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
             if (i + slideNow * columnCount < innerMax - 1)
             {
+                //画像にしたい
                 itemSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i + slideNow * columnCount].Name;
             }
             else if (i + slideNow * columnCount == innerMax - 1)
@@ -83,14 +82,8 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     public override void Close()
     {
-        //メッセージを消す
         FrameUIManager.Instance.UpdateMessageText("", "");
 
-        //UIを消す
-        if (itemSet.Window != null)
-        {
-            itemSet.Window.SetActive(false);
-        }
         foreach (var n in itemSet.Buttons)
         {
             n.SetActive(false);

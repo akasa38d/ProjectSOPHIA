@@ -4,37 +4,45 @@ using UnityEngine;
 
 public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
 {
-    //呼び出すプレハブ
-    [SerializeField]
-    GameObject TownBaseSet;
-    [SerializeField]
-    GameObject TownTalkSet;
-    [SerializeField]
-    GameObject CoffeeRequestSet;
+    PrefabsManager prefabsManager { get { return PrefabsManager.Instance; } }
 
-    [SerializeField]
-    GameObject ItemSetPrefabs;
     GameObject itemSet;
-    GameObject getItemSet
+    public GameObject GetItemSet
     {
         get
         {
             if (itemSet == null)
             {
-                itemSet = Instantiate(ItemSetPrefabs);
+                itemSet = Instantiate(prefabsManager.ItemSetPrefabs);
                 itemSet.transform.SetParent(AdvCanvas.transform, false);
             }
             return itemSet;
         }
     }
 
+    GameObject itemDescription;
+    public GameObject GetItemDescription
+    {
+        get
+        {
+            if (itemDescription == null)
+            {
+                itemDescription = Instantiate(prefabsManager.ItemDescription);
+                itemDescription.transform.SetParent(AdvCanvas.transform, false);
+            }
+            return itemDescription;
+        }
+    }
+
     //キャンバス
     [SerializeField]
     GameObject AdvCanvas;
+    [SerializeField]
+    GameObject MenuCanvas;
 
     //タウン各地での操作・行動
     public AbstractTownAct CurrentAct;
-    AbstractTownAct townBaseAct;    //(TownbaseAct)にキャストすべき？actListと別にすべき？
+    TownBaseAct townBaseAct;    //(TownbaseAct)にキャストすべき？actListと別にすべき？
 
     List<AbstractTownAct> actList = new List<AbstractTownAct>();
     AbstractTownAct getAct(string name)
@@ -56,7 +64,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         if (acts.Count() == 0)
         {
             var textFile = Resources.Load(fileName).ToString();
-            var prefabsSet = Instantiate(TownTalkSet);
+            var prefabsSet = Instantiate(prefabsManager.TownTalkSet);
             prefabsSet.transform.SetParent(AdvCanvas.transform, false);
             textActList.Add(new MultiTextAct(textFile, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp) { Name = fileName });
         }
@@ -67,13 +75,12 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     public void StartUpTownBase()
     {
         var name = "TownBase";
-        if (getAct(name) == null)
+        if (townBaseAct == null)
         {
-            var prefabsSet = Instantiate(TownBaseSet);
+            var prefabsSet = Instantiate(prefabsManager.TownBaseSet);
             prefabsSet.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new TownBaseAct(name, prefabsSet.GetComponent<TownBaseSet>()));
+            townBaseAct = new TownBaseAct(name, prefabsSet.GetComponent<TownBaseSet>());
         }
-        townBaseAct = getAct(name);
         townBaseAct.StartUp();
     }
 
@@ -107,9 +114,9 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "AtelierStorage";
         if (getAct(name) == null)
         {
-            var prefabsSet = Instantiate(CoffeeRequestSet);
+            var prefabsSet = Instantiate(prefabsManager.CoffeeRequestSet);
             prefabsSet.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new AttelierStorageAct(name, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp, (TownBaseAct)townBaseAct));
+            actList.Add(new AttelierStorageAct(name, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp, townBaseAct));
         }
         getAct(name).StartUp();
         townBaseAct.Close();
@@ -120,7 +127,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "AtelierStoragePut";
         if (getAct(name) == null)
         {
-            actList.Add(new AStoragePutAct(name, getItemSet.GetComponent<ItemSet>(), exec));
+            actList.Add(new AStoragePutAct(name, exec));
         }
         CurrentAct.SimpleClose();
         getAct(name).StartUp();
@@ -131,7 +138,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "AtelierStoragePull";
         if (getAct(name) == null)
         {
-            actList.Add(new AStoragePullAct(name, getItemSet.GetComponent<ItemSet>(), exec));
+            actList.Add(new AStoragePullAct(name, exec));
         }
         CurrentAct.SimpleClose();
         getAct(name).StartUp();
@@ -142,7 +149,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "CoffeeRequest";
         if (getAct(name) == null)
         {
-            var gameObject = Instantiate(CoffeeRequestSet);
+            var gameObject = Instantiate(prefabsManager.CoffeeRequestSet);
             gameObject.transform.SetParent(AdvCanvas.transform, false);
             actList.Add(new CoffeeRequestAct(name, gameObject.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp));
         }
@@ -156,7 +163,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketPurchase";
         if (getAct(name) == null)
         {
-            actList.Add(new MarketPurchaseAct(name, getItemSet.GetComponent<ItemSet>(), townBaseAct.StartUp));
+            actList.Add(new MarketPurchaseAct(name, townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         townBaseAct.Close();
@@ -168,16 +175,38 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "MarketSell";
         if (getAct(name) == null)
         {
-            actList.Add(new MarketSellAct(name, getItemSet.GetComponent<ItemSet>(), townBaseAct.StartUp));
+            actList.Add(new MarketSellAct(name, townBaseAct.StartUp));
         }
         getAct(name).StartUp();
         townBaseAct.Close();
         townBaseAct.CloseImage();
     }
 
+    public void OpenMenuAct()
+    {
+
+    }
+
+    public void CloseMenuAct()
+    {
+
+    }
+
     // Use this for initialization
     void Start()
     {
         StartUpTownBase();
+        SetControl();
+    }
+
+    void SetControl()
+    {
+        Controller.Instance.SetControlUpdate = () => CurrentAct.Update();
+    }
+
+    public void RefreshActs()
+    {
+        townBaseAct.Refresh();
+        foreach (var n in actList) { n.Refresh(); }
     }
 }

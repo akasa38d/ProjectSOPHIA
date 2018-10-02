@@ -9,5 +9,5 @@ public class MissionData
     public enum MissionType { Battle, Item };
     public MissionType Type;
 
-
+    public int Limit;
 }

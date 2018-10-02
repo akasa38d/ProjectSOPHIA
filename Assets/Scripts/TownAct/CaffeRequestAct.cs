@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MyUtility;
@@ -39,7 +38,6 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
             }
         }
     }
-
 
     public override void Close() { base.Close(); }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
@@ -16,6 +15,25 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
 
         LoadRunnerBase();
     }
+
+    #region Player
+
+    void LoadPlayerBase()
+    {
+
+    }
+
+    void convertToPlayerBase()
+    {
+
+    }
+
+    public PlayerBase getPlayerBase(int level)
+    {
+        return new PlayerBase();
+    }
+
+    #endregion
 
     #region Item
 

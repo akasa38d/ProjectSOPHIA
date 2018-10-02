@@ -33,7 +33,7 @@ public class TextBox
 }
 
 //test
-public class TestChain
+public class GroupChain
 {
     public string Name;
     public List<TextBox> TextBoxChain = new List<TextBox>();

@@ -18,7 +18,7 @@ public class TextData
     public int GroupNumber = 0;
 
     public List<TextBox> TextBoxChain = new List<TextBox>();
-    public List<TestChain> TestChains = new List<TestChain>();
+    public List<GroupChain> GroupChains = new List<GroupChain>();
 
     public TextData(string textFile)
     {
@@ -116,14 +116,14 @@ public class TextData
 
         foreach (var person in people)
         {
-            var testChain = new TestChain() { Name = person.Key };
+            var testChain = new GroupChain() { Name = person.Key };
 
             foreach (var textBox in person)
             {
                 testChain.TextBoxChain.Add(textBox);
             }
 
-            TestChains.Add(testChain);
+            GroupChains.Add(testChain);
         }
     }
 }

@@ -14,6 +14,7 @@ public class DateData
         checkMonth();
         checkYear();
         FrameUIManager.Instance.UpdateDate();
+        AdvPartManager.Instance.RefreshActs();
     }
 
     void checkWeek()

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SingleTextAct : AbstractTextAct
@@ -28,14 +27,8 @@ public class SingleTextAct : AbstractTextAct
         //イテレータ―の初期化
         textIterator = 0;
 
-        if (textChain.Count == 0)
-        {
-            Close();
-        }
-        else
-        {
-            openTextBox(textIterator);
-        }
+        if (textChain.Count == 0) { Close(); }
+        else { openTextBox(textIterator); }
     }
 
     void openTextBox(int iterator)
@@ -55,14 +48,8 @@ public class SingleTextAct : AbstractTextAct
         //決定
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (textIterator > textChain.Count - 1)
-            {
-                Close();
-            }
-            else
-            {
-                openTextBox(textIterator);
-            }
+            if (textIterator > textChain.Count - 1) { Close(); }
+            else { openTextBox(textIterator); }
         }
     }
 }

@@ -11,8 +11,7 @@ public class Facility
     public List<TextBox> welcomeFirst = new List<TextBox>();
     public List<TextBox> welcomeNext = new List<TextBox>();
 
- //   public TestChain welcomeFirst1 = new TestChain();
- //   public TestChain welcomeNext1 = new TestChain();
+    public void Refresh() { firstFlag = false; }
 }
 
 public abstract class FacilityAct

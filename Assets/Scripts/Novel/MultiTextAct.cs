@@ -49,7 +49,7 @@ public class MultiTextAct : AbstractTextAct
     {
         if (textIterator == 0) { closePeople(); }
 
-        FrameUIManager.Instance.UpdateMessageText(textData.TestChains[person].TextBoxChain[iterator].Person, textData.TestChains[person].TextBoxChain[iterator].Message);
+        FrameUIManager.Instance.UpdateMessageText(textData.GroupChains[person].TextBoxChain[iterator].Person, textData.GroupChains[person].TextBoxChain[iterator].Message);
         //画像変更や音声系の処理もここに入れる
         textIterator++;
     }
@@ -127,7 +127,7 @@ public class MultiTextAct : AbstractTextAct
             }
             else
             {
-                if (textIterator > textData.TestChains[personIterator.Count].TextBoxChain.Count - 1)
+                if (textIterator > textData.GroupChains[personIterator.Count].TextBoxChain.Count - 1)
                 {
                     layoutPeople();
                     selectPeople(personIterator.Count);
@@ -153,7 +153,7 @@ public class MultiTextAct : AbstractTextAct
         {
             if (textIterator > 0)
             {
-                if (textIterator > textData.TestChains[personIterator.Count].TextBoxChain.Count - 1)
+                if (textIterator > textData.GroupChains[personIterator.Count].TextBoxChain.Count - 1)
                 {
                     layoutPeople();
                     selectPeople(personIterator.Count);
