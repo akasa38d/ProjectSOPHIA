@@ -6,8 +6,6 @@ public class MissionData
 {
     public string Name;
 
-    public enum MissionType { Battle, Item };
+    public enum MissionType { ItemNum, ItemProp, ItemQual, Hunt, Fight };
     public MissionType Type;
-
-    public int Limit;
 }

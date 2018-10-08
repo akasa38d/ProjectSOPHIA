@@ -22,7 +22,8 @@ MonoBehaviour:
       Value: 20
       Price: 50
       Quality: 1
-      Num: 1
+      Range: 1
+      InitNum: 1
       Description: "\u3044\u308F\u3086\u308B\u85AC\u8349\u3002"
     - ID: 1
       Name: "\u9AD8\u7D1A\u30CF\u30FC\u30D6"
@@ -32,7 +33,8 @@ MonoBehaviour:
       Value: 50
       Price: 240
       Quality: 2
-      Num: 1
+      Range: 1
+      InitNum: 1
       Description: "\u54C1\u8CEA\u306E\u826F\u3044\u85AC\u8349\u3002"
     - ID: 2
       Name: "\u6E05\u3089\u304B\u306A\u6C34"
@@ -42,7 +44,8 @@ MonoBehaviour:
       Value: 0
       Price: 80
       Quality: 0
-      Num: 1
+      Range: 1
+      InitNum: 1
       Description: "\u900F\u304D\u901A\u3063\u305F\u5929\u7136\u6C34\u3002"
     - ID: 3
       Name: "\u30A4\u30F3\u30B4\u30C3\u30C8"
@@ -52,7 +55,8 @@ MonoBehaviour:
       Value: 0
       Price: 500
       Quality: 0
-      Num: 1
+      Range: 1
+      InitNum: 1
       Description: "\u52A0\u5DE5\u7528\u306E\u9244\u306E\u584A\u3002"
     - ID: 4
       Name: "\u901A\u5E38\u5F3E"
@@ -62,5 +66,6 @@ MonoBehaviour:
       Value: 0
       Price: 50
       Quality: 0
-      Num: 6
+      Range: 1
+      InitNum: 6
       Description: "\u30EA\u30DC\u30EB\u30D0\u30FC\u7528\u306E\u5F3E\u4E38\u3002"

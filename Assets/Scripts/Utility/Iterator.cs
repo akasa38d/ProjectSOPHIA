@@ -30,12 +30,12 @@ public class TownBaseIterator
         get { return facilityAct; }
     }
 
-    public TownBaseIterator(TownBaseAct townBaseAct)
+    public TownBaseIterator(int[] array)
     {
-        maxFacilityAct = new int[townBaseAct.Facilities.Count];
+        maxFacilityAct = new int[array.Length];
         for (int i = 0; i < maxFacilityAct.Length; i++)
         {
-            maxFacilityAct[i] = townBaseAct.Facilities[i].FacilityActs.Count;
+            maxFacilityAct[i] = array[i];
         }
     }
 
@@ -47,29 +47,28 @@ public class TownBaseIterator
 
 public class SingleIterator
 {
-    int maxNumber;
-    public int MaxNumber { get { return maxNumber; } }
+    public int MaxNumber { private set; get; }
 
-    int count = 0;
-    public int Count
+    int num = 0;
+    public int Num
     {
         set
         {
-            count = value;
-            count = Util.Roop(count, 0, maxNumber - 1);
+            num = value;
+            num = Util.Roop(num, 0, MaxNumber - 1);
         }
 
-        get { return count; }
+        get { return num; }
     }
 
     public SingleIterator(int maxNum)
     {
-        maxNumber = maxNum;
+        MaxNumber = maxNum;
     }
 
-    public void ResetCount()
+    public void ResetNum()
     {
-        count = 0;
+        num = 0;
     }
 }
 

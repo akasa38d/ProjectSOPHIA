@@ -93,25 +93,25 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
         //選択
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            singleIterator.Count++;
-            selectObject(singleIterator.Count);
+            singleIterator.Num++;
+            selectObject(singleIterator.Num);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            singleIterator.Count--;
-            selectObject(singleIterator.Count);
+            singleIterator.Num--;
+            selectObject(singleIterator.Num);
         }
 
         //決定
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (singleIterator.Count < objects.Count)
+            if (singleIterator.Num < objects.Count)
             {
-                objects[singleIterator.Count].Action();
+                objects[singleIterator.Num].Action();
                 SimpleClose();
             }
-            if (singleIterator.Count == objects.Count)
+            if (singleIterator.Num == objects.Count)
             {
                 Close();
             }
@@ -197,6 +197,9 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
 
     public override void Close()
     {
+
+
+
         itemDescription.SetActive(false);
         base.Close();
     }

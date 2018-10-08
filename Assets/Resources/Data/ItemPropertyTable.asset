@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4067137e55ca98a45b149fcc92f3c693, type: 3}
+  m_Name: ItemPropertyTable
+  m_EditorClassIdentifier: 
+  sheets:
+  - name: Sheet1
+    list:
+    - ID: 0
+      Name: Null
+      Type: Null
+      Value: 0
+      Price: 0
+      Quality: 0
+      Range: 0
+      InitNum: 0
+    - ID: 1
+      Name: "\u9811\u5065"
+      Type: Equip
+      Value: 20
+      Price: 20
+      Quality: 1
+      Range: 0
+      InitNum: 0
+    - ID: 2
+      Name: "\u7279\u9078"
+      Type: ALL
+      Value: 25
+      Price: 25
+      Quality: 1
+      Range: 0
+      InitNum: 0
+    - ID: 3
+      Name: "\u7C97\u60AA"
+      Type: ALL
+      Value: -10
+      Price: -10
+      Quality: -1
+      Range: 0
+      InitNum: 0
+    - ID: 4
+      Name: "\u62E1\u6563"
+      Type: Bomb
+      Value: -20
+      Price: -20
+      Quality: 0
+      Range: 1
+      InitNum: 0
+    - ID: 5
+      Name: "\u53CE\u675F"
+      Type: Bomb
+      Value: 50
+      Price: 50
+      Quality: 0
+      Range: -1
+      InitNum: 0
+    - ID: 6
+      Name: "\u7BC0\u5236"
+      Type: Use
+      Value: 25
+      Price: 25
+      Quality: 1
+      Range: 0
+      InitNum: 2
+    - ID: 7
+      Name: "\u53B3\u9078"
+      Type: Use
+      Value: 25
+      Price: 25
+      Quality: 1
+      Range: 0
+      InitNum: -2
+    - ID: 8
+      Name: "\u8F1D\u304F"
+      Type: ALL
+      Value: 50
+      Price: 50
+      Quality: 1
+      Range: 0
+      InitNum: 0

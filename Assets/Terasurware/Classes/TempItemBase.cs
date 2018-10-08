@@ -15,7 +15,8 @@ public class TempItemBase : ScriptableObject
 
 	[System.SerializableAttribute]
 	public class Param
-	{		
+	{
+		
 		public int ID;
 		public string Name;
 		public string Type;
@@ -24,7 +25,8 @@ public class TempItemBase : ScriptableObject
 		public int Value;
 		public int Price;
 		public int Quality;
-		public int Num;
+		public int Range;
+		public int InitNum;
 		public string Description;
 	}
 }

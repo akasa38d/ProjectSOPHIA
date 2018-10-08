@@ -26,9 +26,9 @@ public class FrameUIManager : SingletonMonoBehaviour<FrameUIManager>
     //        BImage.gameObject.SetActive(switching);
     //    }
 
-    public void UpdateDate()
+    public void UpdateDay()
     {
-        dateText.text = playerDataManager.CurrentDate.Month + "月  " + playerDataManager.CurrentDate.Week + "週  " + playerDataManager.CurrentDate.Day + "日目";
+        dateText.text = playerDataManager.Day + "日目";
     }
 
     public void UpdatePlaceText()

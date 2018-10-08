@@ -48,7 +48,7 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
         base.selectObject(count);
 
         //アイテムの説明更新
-        if (singleIterator.Count < objects.Count)
+        if (singleIterator.Num < objects.Count)
         {
             if (prefabsSet.Window.activeSelf == false)
             {
@@ -61,7 +61,7 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
                 + objects[count].Description;
         }
 
-        if (singleIterator.Count == objects.Count)
+        if (singleIterator.Num == objects.Count)
         {
             prefabsSet.Window.SetActive(false);
             prefabsSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
@@ -73,20 +73,20 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
         //選択
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            singleIterator.Count++;
-            selectObject(singleIterator.Count);
+            singleIterator.Num++;
+            selectObject(singleIterator.Num);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            singleIterator.Count--;
-            selectObject(singleIterator.Count);
+            singleIterator.Num--;
+            selectObject(singleIterator.Num);
         }
 
         //決定
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (singleIterator.Count == objects.Count)
+            if (singleIterator.Num == objects.Count)
             {
                 Close();
             }

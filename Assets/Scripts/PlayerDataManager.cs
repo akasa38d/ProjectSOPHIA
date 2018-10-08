@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerDataManager : SingletonMonoBehaviour<PlayerDataManager>
 {
     //現在の日付・場所
-    public DateData currentDate;
-    public DateData CurrentDate
+    public int day;
+    public int Day
     {
         set
         {
-            currentDate = value;
-            FrameUIManager.Instance.UpdateDate();
+            day = value;
+            FrameUIManager.Instance.UpdateDay();
         }
-        get { return currentDate; }
+        get { return day; }
     }
 
     string currentPlace;

@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c88360872e9a24cb61843ec57ca9c7, type: 3}
+  m_Name: PlayerBaseTable
+  m_EditorClassIdentifier: 
+  sheets:
+  - name: Sheet1
+    list:
+    - LV: 1
+      MaxHP: 30
+      Atk: 5
+      Def: 3
+      NextExp: 10
+    - LV: 2
+      MaxHP: 33
+      Atk: 6
+      Def: 4
+      NextExp: 16
+    - LV: 3
+      MaxHP: 36
+      Atk: 7
+      Def: 5
+      NextExp: 24
+    - LV: 4
+      MaxHP: 40
+      Atk: 8
+      Def: 6
+      NextExp: 34
+    - LV: 5
+      MaxHP: 44
+      Atk: 9
+      Def: 7
+      NextExp: 46
+    - LV: 6
+      MaxHP: 45
+      Atk: 11
+      Def: 8
+      NextExp: 58
+    - LV: 7
+      MaxHP: 50
+      Atk: 12
+      Def: 9
+      NextExp: 72
+    - LV: 8
+      MaxHP: 56
+      Atk: 13
+      Def: 11
+      NextExp: 86
+    - LV: 9
+      MaxHP: 62
+      Atk: 14
+      Def: 12
+      NextExp: 102
+    - LV: 10
+      MaxHP: 69
+      Atk: 16
+      Def: 13
+      NextExp: 120
+    - LV: 11
+      MaxHP: 76
+      Atk: 17
+      Def: 14
+      NextExp: 140
+    - LV: 12
+      MaxHP: 84
+      Atk: 18
+      Def: 15
+      NextExp: 162
+    - LV: 13
+      MaxHP: 92
+      Atk: 19
+      Def: 16
+      NextExp: 184
+    - LV: 14
+      MaxHP: 100
+      Atk: 21
+      Def: 17
+      NextExp: 206
+    - LV: 15
+      MaxHP: 110
+      Atk: 22
+      Def: 18
+      NextExp: 230
+    - LV: 16
+      MaxHP: 120
+      Atk: 23
+      Def: 19
+      NextExp: 270
+    - LV: 17
+      MaxHP: 130
+      Atk: 24
+      Def: 21
+      NextExp: 320
+    - LV: 18
+      MaxHP: 140
+      Atk: 26
+      Def: 22
+      NextExp: 400
+    - LV: 19
+      MaxHP: 150
+      Atk: 28
+      Def: 23
+      NextExp: 500
+    - LV: 20
+      MaxHP: 160
+      Atk: 30
+      Def: 25
+      NextExp: 0

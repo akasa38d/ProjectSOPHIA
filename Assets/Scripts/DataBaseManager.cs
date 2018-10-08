@@ -5,39 +5,111 @@ using System;
 
 public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
 {
+    public List<PlayerBase> PlayerBaseTable = new List<PlayerBase>();
+    public List<EnemyBase> EnemyBaseTable = new List<EnemyBase>();
     public List<ItemBase> ItemBaseTable = new List<ItemBase>();
+    public List<ItemProperty> ItemPropertyTable = new List<ItemProperty>();
     public List<RunnerBase> RunnerBaseTable = new List<RunnerBase>();
 
     public new void Awake()
     {
-        LoadItemBase();
+        loadPlayerBase();
+        loadEnemyBase();
+
+        loadItemBase();
         //LoadItemProperty();
 
-        LoadRunnerBase();
+        loadRunnerBase();
     }
 
     #region Player
 
-    void LoadPlayerBase()
+    void loadPlayerBase()
     {
-
+        var tempTable = (TempPlayerBase)Resources.Load("Data/PlayerBaseTable");
+        for (int i = 0; i < tempTable.sheets[0].list.Count; i++)
+        {
+            var n = tempTable.sheets[0].list[i];
+            var playerBase = new PlayerBase();
+            convertToPlayerBase(n, playerBase);
+            PlayerBaseTable.Add(playerBase);
+        }
     }
 
-    void convertToPlayerBase()
+    void convertToPlayerBase(TempPlayerBase.Param n, PlayerBase playerBase)
     {
-
+        playerBase.Level = n.LV;
+        playerBase.Name = "ソフィア";
+        playerBase.MaxHP = n.MaxHP;
+        playerBase.MaxSP = 0;
+        playerBase.Atk = n.Atk;
+        playerBase.Def = n.Def;
+        playerBase.Spd = 2;
+        playerBase.Exp = 0;
+        playerBase.NextExp = n.NextExp;
     }
 
     public PlayerBase getPlayerBase(int level)
     {
-        return new PlayerBase();
+        var playerBaseTable = PlayerBaseTable.Where(n => n.Level == level);
+        if (playerBaseTable == null) { return null; }
+        return playerBaseTable.First();
     }
 
     #endregion
 
-    #region Item
+    #region Enemy
 
-    void LoadItemBase()
+    void loadEnemyBase()
+    {
+        var tempTable = (TempEnemyBase)Resources.Load("Data/EnemyBaseTable");
+        for (int i = 0; i < tempTable.sheets[0].list.Count; i++)
+        {
+            var n = tempTable.sheets[0].list[i];
+            var enemyBase = new EnemyBase();
+            convertToEnemyBase(n, enemyBase);
+            EnemyBaseTable.Add(enemyBase);
+        }
+    }
+
+    void convertToEnemyBase(TempEnemyBase.Param n, EnemyBase enemyBase)
+    {
+        enemyBase.ID = n.ID;
+        enemyBase.Name = n.Name;
+        enemyBase.MaxHP = n.MaxHP;
+        enemyBase.MaxSP = n.MaxSP;
+        enemyBase.Atk = n.Atk;
+        enemyBase.Def = n.Def;
+        enemyBase.Spd = n.Spd;
+        enemyBase.MoneyDrop = n.MoneyDrop;
+        enemyBase.Money = n.Money;
+        enemyBase.NormalDrop = n.NormalDrop;
+        enemyBase.NormalItemID = n.NormalDrop;
+        enemyBase.RareDrop = n.RareDrop;
+        enemyBase.RareItemID = n.RareItem;
+        if (EnemyBase.ActionType.TryParse(n.ActType, out enemyBase.Act))
+        {
+            enemyBase.Act = EnemyBase.ActionType.Normal;
+        }
+        if (EnemyBase.RankType.TryParse(n.RankType, out enemyBase.Rank))
+        {
+            enemyBase.Rank = EnemyBase.RankType.Common;
+        }
+
+    }
+
+    public EnemyBase getEnemyBase(int id)
+    {
+        var enemyBaseTable = EnemyBaseTable.Where(n => n.ID == id);
+        if (enemyBaseTable == null) { return null; }
+        return enemyBaseTable.First();
+    }
+
+    #endregion
+
+    #region ItemBase
+
+    void loadItemBase()
     {
         var tempTable = (TempItemBase)Resources.Load("Data/ItemBaseTable");
         for (int i = 0; i < tempTable.sheets[0].list.Count; i++)
@@ -53,17 +125,14 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
     {
         itemBase.ID = n.ID;
         itemBase.Name = n.Name;
-
-        if (ItemBase.ItemType.TryParse(n.Type, out itemBase.Type) == false)
+        if (ItemBase.BaseType.TryParse(n.Type, out itemBase.Type) == false)
         {
-            itemBase.Type = ItemBase.ItemType.Null;
+            itemBase.Type = ItemBase.BaseType.Null;
         }
-
         if (ItemBase.ItemAction.TryParse(n.ActionName, out itemBase.ActionType) == false)
         {
             itemBase.ActionType = ItemBase.ItemAction.Null;
         }
-
         foreach (var material in n.Material.Split(new[] { ", " }, StringSplitOptions.None))
         {
             ItemBase.ItemMaterialType materialType;
@@ -79,11 +148,11 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
         {
             itemBase.MaterialTypes.Add(ItemBase.ItemMaterialType.Null);
         }
-
         itemBase.Value = n.Value;
         itemBase.Price = n.Price;
         itemBase.Quality = n.Quality;
-        itemBase.Num = n.Num;
+        itemBase.Range = n.Range;
+        itemBase.InitNum = n.InitNum;
         itemBase.Description = n.Description;
     }
 
@@ -98,10 +167,47 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
 
     #endregion
 
+    #region ItemProperty
+
+    void loadItemProperty()
+    {
+        var tempTable = (TempItemProperty)Resources.Load("Data/ItemPropaertyTable");
+        for (int i = 0; i < tempTable.sheets[0].list.Count; i++)
+        {
+            var n = tempTable.sheets[0].list[i];
+            var itemProperty = new ItemProperty();
+            convertToItemProperty(n, itemProperty);
+            ItemPropertyTable.Add(itemProperty);
+        }
+    }
+
+    void convertToItemProperty(TempItemProperty.Param n, ItemProperty itemProperty)
+    {
+        itemProperty.ID = n.ID;
+        itemProperty.Name = n.Name;
+        if (ItemProperty.PropType.TryParse(n.Type, out itemProperty.Type) == false)
+        {
+            itemProperty.Type = ItemProperty.PropType.Null;
+        }
+        itemProperty.Value = n.Value;
+        itemProperty.Price = n.Price;
+        itemProperty.Quality = n.Quality;
+        itemProperty.Range = n.Range;
+        itemProperty.InitNum = n.InitNum;
+    }
+
+    public ItemProperty GetItemProp(int id)
+    {
+        var itemPropertyTable = ItemPropertyTable.Where(n => n.ID == id);
+        if (itemPropertyTable == null) { return null; }
+        return itemPropertyTable.First();
+    }
+
+    #endregion
 
     #region Runner
 
-    public void LoadRunnerBase()
+    public void loadRunnerBase()
     {
         var tempTable = (TempRunnerBase)Resources.Load("Data/RunnerBaseTable");
         for (int i = 0; i < tempTable.sheets[0].list.Count; i++)

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class TownBaseAct : AbstractTownAct
 {
@@ -15,10 +16,8 @@ public class TownBaseAct : AbstractTownAct
     {
         Name = name;
         townBaseSet = component;
-
         Facilities = new List<Facility>() { new Atelier(), new Coffee(), new Market(), new Dungeon() };
-
-        advIterator = new TownBaseIterator(this);
+        advIterator = new TownBaseIterator(Facilities.Select(n => n.FacilityActs.Count).ToArray());
     }
 
     //AdvPartManagerでの起動
@@ -36,7 +35,7 @@ public class TownBaseAct : AbstractTownAct
     //AdvPartManagerでの一時消し
     public override void Close()
     {
-        foreach (var a in townBaseSet.FacilityButtons)
+        foreach (var a in townBaseSet.Buttons)
         {
             a.transform.localScale = new Vector3(1, 1, 1);
             a.SetActive(false);
@@ -100,12 +99,12 @@ public class TownBaseAct : AbstractTownAct
         Close();
 
         //施設のActに合わせてボタンを更新
-        for (int i = 0; i < townBaseSet.FacilityButtons.Count; i++)
+        for (int i = 0; i < townBaseSet.Buttons.Count; i++)
         {
             if (i < facility.FacilityActs.Count)
             {
-                townBaseSet.FacilityButtons[i].SetActive(true);
-                townBaseSet.FacilityButtons[i].transform.GetChild(0).GetComponent<Text>().text = facility.FacilityActs[i].Name;
+                townBaseSet.Buttons[i].SetActive(true);
+                townBaseSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = facility.FacilityActs[i].Name;
             }
         }
 
@@ -116,15 +115,15 @@ public class TownBaseAct : AbstractTownAct
     //行動選択アニメーター
     void selectFacilityActs(int ActNumber)
     {
-        for (int i = 0; i < townBaseSet.FacilityButtons.Count; i++)
+        for (int i = 0; i < townBaseSet.Buttons.Count; i++)
         {
             if (i == ActNumber)
             {
-                townBaseSet.FacilityButtons[i].GetComponent<Animator>().SetTrigger("IsSelect");
+                townBaseSet.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
             }
-            else if (townBaseSet.FacilityButtons[i].activeSelf == true)
+            else if (townBaseSet.Buttons[i].activeSelf == true)
             {
-                townBaseSet.FacilityButtons[i].GetComponent<Animator>().SetBool("IsSelect", false);
+                townBaseSet.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
             }
         }
     }

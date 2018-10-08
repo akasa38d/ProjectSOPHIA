@@ -30,7 +30,7 @@ public class MultiTextAct : AbstractTextAct
         layoutPeople();
 
         //UI初期位置
-        selectPeople(personIterator.Count);
+        selectPeople(personIterator.Num);
     }
 
     public override void Close()
@@ -108,33 +108,33 @@ public class MultiTextAct : AbstractTextAct
         //複数人から選択
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            personIterator.Count++;
-            selectPeople(personIterator.Count);
+            personIterator.Num++;
+            selectPeople(personIterator.Num);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            personIterator.Count--;
-            selectPeople(personIterator.Count);
+            personIterator.Num--;
+            selectPeople(personIterator.Num);
         }
 
         //決定
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (personIterator.Count == groupNumber)
+            if (personIterator.Num == groupNumber)
             {
                 Close();
             }
             else
             {
-                if (textIterator > textData.GroupChains[personIterator.Count].TextBoxChain.Count - 1)
+                if (textIterator > textData.GroupChains[personIterator.Num].TextBoxChain.Count - 1)
                 {
                     layoutPeople();
-                    selectPeople(personIterator.Count);
+                    selectPeople(personIterator.Num);
                 }
                 else
                 {
-                    openTextBox(textIterator, personIterator.Count);
+                    openTextBox(textIterator, personIterator.Num);
                 }
             }
         }
@@ -153,14 +153,14 @@ public class MultiTextAct : AbstractTextAct
         {
             if (textIterator > 0)
             {
-                if (textIterator > textData.GroupChains[personIterator.Count].TextBoxChain.Count - 1)
+                if (textIterator > textData.GroupChains[personIterator.Num].TextBoxChain.Count - 1)
                 {
                     layoutPeople();
-                    selectPeople(personIterator.Count);
+                    selectPeople(personIterator.Num);
                 }
                 else
                 {
-                    openTextBox(textIterator, personIterator.Count);
+                    openTextBox(textIterator, personIterator.Num);
                 }
             }
         }
@@ -169,15 +169,15 @@ public class MultiTextAct : AbstractTextAct
         {
             if (Controller.Instance.CatchButtonsEnter[i] == true)
             {
-                personIterator.Count = i;
+                personIterator.Num = i;
                 selectPeople(i);
             }
 
             if (Controller.Instance.CatchButtonsDown[i] == true)
             {
-                personIterator.Count = i;
+                personIterator.Num = i;
                 selectPeople(i);
-                openTextBox(textIterator, personIterator.Count);
+                openTextBox(textIterator, personIterator.Num);
             }
         }
     }

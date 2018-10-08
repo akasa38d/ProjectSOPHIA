@@ -6,7 +6,8 @@ public class TownBaseSet : MonoBehaviour
 {
     //ボタン
     [SerializeField]
-    public List<GameObject> FacilityButtons;
+    List<GameObject> buttons;
+    public List<GameObject> Buttons { get { return buttons; } }
 
     //施設の画像
     [SerializeField]
@@ -16,5 +17,20 @@ public class TownBaseSet : MonoBehaviour
     public GameObject FacilityImage;
 
     [SerializeField]
+    protected GameObject layout;
+
+    [SerializeField]
     public Image BGFacility;
+
+    public void Awake()
+    {
+        if (layout != null)
+        {
+            buttons = new List<GameObject>();
+            foreach (Transform n in layout.transform)
+            {
+                buttons.Add(n.gameObject);
+            }
+        }
+    }
 }

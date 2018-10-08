@@ -38,7 +38,7 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
         layoutObjects();
 
         //UI初期位置
-        selectObject(singleIterator.Count);
+        selectObject(singleIterator.Num);
     }
 
     protected virtual void layoutObjects()
@@ -79,7 +79,7 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
         }
 
         //イテレーターをリセット
-        singleIterator.ResetCount();
+        singleIterator.ResetNum();
     }
 
     protected virtual void selectObject(int count)

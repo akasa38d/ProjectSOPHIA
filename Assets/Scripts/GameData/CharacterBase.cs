@@ -10,7 +10,6 @@ public abstract class CharacterBase
     public int Spd;
     public int Exp;
     public int NextExp;
-    public int Money;
 }
 
 //CharacterBaseの補足
@@ -22,13 +21,18 @@ public class PlayerBase : CharacterBase
 public class EnemyBase : CharacterBase
 {
     public int ID;
-    public int CommonDrop;
-    public Item CommonItem;
+    public int NormalDrop;
+    public int NormalItemID;
     public int RareDrop;
-    public Item RareItem;
+    public int RareItemID;
+    public int MoneyDrop;
+    public int Money;
 
     public enum ActionType { Normal };
     public ActionType Act;
+
+    public enum RankType { Common, FloorMaster, Boss, Runner };
+    public RankType Rank;
 }
 
 public abstract class AbstractCharacterParameter
@@ -69,9 +73,7 @@ public abstract class AbstractCharacterParameter
     public int Atk { get { return characterBase.Atk; } }
     public int Def { get { return characterBase.Def; } }
     public int Spd { get { return characterBase.Spd; } }
-
     public int Exp { get { return characterBase.Exp; } }
-    public int Money { get { return characterBase.Money; } }
 }
 
 public class PlayerParameter : AbstractCharacterParameter

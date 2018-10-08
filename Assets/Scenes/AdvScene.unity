@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AdvCanvas: {fileID: 978487774}
-  MenuCanvas: {fileID: 0}
+  MenuCanvas: {fileID: 1337144660}
 --- !u!1 &666582000
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,7 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d47dcaacd2d0a428c9b97b273ca342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townBaseSet: {fileID: 1939636440506622, guid: a6fe3ce41bc2a2e459767507ea6bc527,
+  townBaseSet: {fileID: 1506593443463426, guid: a6fe3ce41bc2a2e459767507ea6bc527,
     type: 2}
   townTalkSet: {fileID: 1288781678865516, guid: eb616bba321db6a469d3f84a89304e3b,
     type: 2}

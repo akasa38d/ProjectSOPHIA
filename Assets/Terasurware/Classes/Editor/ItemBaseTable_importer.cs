@@ -58,8 +58,9 @@ public class ItemBaseTable_importer : AssetPostprocessor {
 					cell = row.GetCell(5); p.Value = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(6); p.Price = (int)(cell == null ? 0 : cell.NumericCellValue);
 					cell = row.GetCell(7); p.Quality = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(8); p.Num = (int)(cell == null ? 0 : cell.NumericCellValue);
-					cell = row.GetCell(9); p.Description = (cell == null ? "" : cell.StringCellValue);
+					cell = row.GetCell(8); p.Range = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(9); p.InitNum = (int)(cell == null ? 0 : cell.NumericCellValue);
+					cell = row.GetCell(10); p.Description = (cell == null ? "" : cell.StringCellValue);
 						s.list.Add (p);
 					}
 					data.sheets.Add(s);

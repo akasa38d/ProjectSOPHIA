@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f29eda75d91dc5e4fb46e8ef8e78979a, type: 3}
+  m_Name: EnemyBaseTable
+  m_EditorClassIdentifier: 
+  sheets:
+  - name: Sheet1
+    list:
+    - ID: 1
+      Name: "\u30B3\u30DC\u30EB\u30C8"
+      MaxHP: 8
+      MaxSP: 0
+      Atk: 5
+      Def: 2
+      Spd: 2
+      Exp: 5
+      NextExp: 5
+      MoneyDrop: 20
+      Money: 40
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: Common
+    - ID: 2
+      Name: "\u30CF\u30A4\u30B3\u30DC\u30EB\u30C8"
+      MaxHP: 16
+      MaxSP: 0
+      Atk: 8
+      Def: 4
+      Spd: 2
+      Exp: 12
+      NextExp: 0
+      MoneyDrop: 20
+      Money: 80
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: Common
+    - ID: 3
+      Name: "\u30B9\u30E9\u30A4\u30E0"
+      MaxHP: 12
+      MaxSP: 0
+      Atk: 5
+      Def: 5
+      Spd: 1
+      Exp: 6
+      NextExp: 0
+      MoneyDrop: 20
+      Money: 60
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: Common
+    - ID: 4
+      Name: "\u5F77\u5FA8\u3048\u308B\u30C9\u30FC\u30EB"
+      MaxHP: 24
+      MaxSP: 0
+      Atk: 10
+      Def: 2
+      Spd: 2
+      Exp: 15
+      NextExp: 0
+      MoneyDrop: 20
+      Money: 120
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: Common
+    - ID: 5
+      Name: "\u30CF\u30A6\u30F3\u30C9"
+      MaxHP: 20
+      MaxSP: 0
+      Atk: 7
+      Def: 2
+      Spd: 3
+      Exp: 15
+      NextExp: 0
+      MoneyDrop: 20
+      Money: 60
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: Common
+    - ID: 6
+      Name: "\u30DF\u30CB\u30B4\u30FC\u30EC\u30E0"
+      MaxHP: 30
+      MaxSP: 0
+      Atk: 15
+      Def: 8
+      Spd: 1
+      Exp: 20
+      NextExp: 0
+      MoneyDrop: 20
+      Money: 200
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: FloorMaster
+    - ID: 7
+      Name: "<\u7344\u708E>\u30B5\u30E9\u30DE\u30F3\u30C9\u30E9"
+      MaxHP: 60
+      MaxSP: 40
+      Atk: 12
+      Def: 6
+      Spd: 2
+      Exp: 0
+      NextExp: 0
+      MoneyDrop: 0
+      Money: 0
+      NormalDrop: 0
+      NormalItem: 0
+      RareDrop: 0
+      RareItem: 0
+      ActType: Normal
+      RankType: Boss
