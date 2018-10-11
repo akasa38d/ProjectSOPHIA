@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoffeeMissionAct : AbstractTownAct
+public class CoffeeMissionAct : AbstractSecondTownAct<CoffeeMissionAct>
 {
-    VerticalSelectBoxes verticalSelectBoxes;
+    VerticalSelectLong verticalSelectBoxes;
 
     SingleIterator iterator;
 
-    public CoffeeMissionAct(string name, Exec exec)
+    public CoffeeMissionAct(VerticalSelectLong select, Exec exec):base(select, exec)
     {
-        Name = name;
         ReturnAct = exec;
     }
 

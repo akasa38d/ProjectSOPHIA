@@ -5,7 +5,9 @@ using MyUtility;
 
 public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
 {
-    public CoffeeRequestAct(string name, UIPrefabsSet pSet, Exec exec) : base(name, pSet, exec) { }
+    GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
+
+    public CoffeeRequestAct(VerticalSelect _select, Exec exec) : base(_select, exec) { }
 
     protected override void loadObjects()
     {
@@ -25,16 +27,16 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
 
         for (int i = 0; i < objects.Count + 1; i++)
         {
-            prefabsSet.Buttons[i].SetActive(true);
+            select.Buttons[i].SetActive(true);
             if (i < objects.Count)
             {
-                prefabsSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i].Name;
-                prefabsSet.Buttons[i].transform.GetChild(1).GetComponent<Text>().text = objects[i].Price.ToStringMoney() + " M";
+                select.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i].Name;
+                select.Buttons[i].transform.GetChild(1).GetComponent<Text>().text = objects[i].Price.ToStringMoney() + " M";
             }
             else if (i == objects.Count)
             {
-                prefabsSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = "キャンセル";
-                prefabsSet.Buttons[i].transform.GetChild(1).GetComponent<Text>().text = "";
+                select.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = "キャンセル";
+                select.Buttons[i].transform.GetChild(1).GetComponent<Text>().text = "";
             }
         }
     }
@@ -50,12 +52,9 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
         //アイテムの説明更新
         if (singleIterator.Num < objects.Count)
         {
-            if (prefabsSet.Window.activeSelf == false)
-            {
-                prefabsSet.Window.SetActive(true);
-            }
+            description.SetActive(true);
 
-            prefabsSet.Window.transform.GetChild(0).GetComponent<Text>().text
+            description.transform.GetChild(0).GetComponent<Text>().text
                 = "LV:" + objects[count].LV + "\n"
                 + "評判:" + objects[count].Power + "\n"
                 + objects[count].Description;
@@ -63,8 +62,8 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
 
         if (singleIterator.Num == objects.Count)
         {
-            prefabsSet.Window.SetActive(false);
-            prefabsSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+            description.SetActive(false);
+            description.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 

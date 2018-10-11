@@ -39,7 +39,6 @@ public class SaveData
     public static List<T> GetList<T>(string key, List<T> _default)
     {
         return SaveDB.GetList<T>(key, _default);
-
     }
 
     public static void SetClass<T>(string key, T obj) where T : class, new()

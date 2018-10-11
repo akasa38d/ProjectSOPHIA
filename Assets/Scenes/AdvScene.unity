@@ -735,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d34fce3e964d59438227bb895344a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  day: 0
   MaxStamina: 100
   stamina: 0
   MoneySaving: 0
@@ -775,15 +776,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d47dcaacd2d0a428c9b97b273ca342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  townBaseSet: {fileID: 1506593443463426, guid: a6fe3ce41bc2a2e459767507ea6bc527,
+  basicSelectButton: {fileID: 1123054005203260, guid: f2f691f60ebb22140961b659b1799f30,
     type: 2}
-  townTalkSet: {fileID: 1288781678865516, guid: eb616bba321db6a469d3f84a89304e3b,
+  basicSelectRight: {fileID: 1917581692956876, guid: 9c53ef7b62d4f8540bb3b7f41559a0d5,
     type: 2}
-  coffeeRequestSet: {fileID: 1793486557382338, guid: 02dc9a59022709d4da0c4b6e1b154cec,
+  twoTopicSelect: {fileID: 1020145696683498, guid: aa83af68413445d48a84da4a2033c3cf,
+    type: 2}
+  facilityImage: {fileID: 1415259548352946, guid: d3cd957e76e383e45b79753c86f070c4,
     type: 2}
   itemSetPrefabs: {fileID: 1111101088214044, guid: 227f139cd074a244692d782c23ba8e98,
     type: 2}
-  itemDescription: {fileID: 1898751741285710, guid: 9e1ac3a6863d6bd44b99333b10cb5cf8,
+  itemDescription: {fileID: 1313054072540504, guid: 9e1ac3a6863d6bd44b99333b10cb5cf8,
     type: 2}
 --- !u!1 &978487774
 GameObject:

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class AbstractTownAct
 {
-    public string Name;
-
     //元のActへ戻すためのデリゲート
     public delegate void Exec();
     public Exec ReturnAct;

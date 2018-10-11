@@ -5,16 +5,20 @@ public class PrefabsManager : SingletonMonoBehaviour<PrefabsManager>
     #region Adv
 
     [SerializeField]
-    GameObject townBaseSet;
-    public GameObject TownBaseSet { get { return townBaseSet; } }
+    GameObject basicSelectButton;
+    public GameObject BasicSelectButton { get { return basicSelectButton; } }
 
     [SerializeField]
-    GameObject townTalkSet;
-    public GameObject TownTalkSet { get { return townTalkSet; } }
+    GameObject basicSelectRight;
+    public GameObject BasicSelectRight { get { return basicSelectRight; } }
 
     [SerializeField]
-    GameObject coffeeRequestSet;
-    public GameObject CoffeeRequestSet { get { return coffeeRequestSet; } }
+    GameObject twoTopicSelect;
+    public GameObject TwoTopicSelect { get { return twoTopicSelect; } }
+
+    [SerializeField]
+    GameObject facilityImage;
+    public GameObject FacilityImage { get { return facilityImage; } }
 
     #endregion
 
@@ -25,7 +29,5 @@ public class PrefabsManager : SingletonMonoBehaviour<PrefabsManager>
     [SerializeField]
     GameObject itemDescription;
     public GameObject ItemDescription { get { return itemDescription; } }
-
-
 
 }

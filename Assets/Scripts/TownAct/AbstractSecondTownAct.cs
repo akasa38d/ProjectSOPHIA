@@ -6,17 +6,14 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 {
     protected SingleIterator singleIterator;
 
-    protected UIPrefabsSet prefabsSet;
+    protected VerticalSelect select;
 
     protected List<T> objects;
 
-    public AbstractSecondTownAct(string name, UIPrefabsSet pSet, Exec exec)
+    public AbstractSecondTownAct(VerticalSelect _select, Exec exec)
     {
-        //名前の設定
-        Name = name;
-
         //オブジェクトの設定
-        prefabsSet = pSet;
+        select = _select;
 
         //デリゲートの設定
         ReturnAct = exec;
@@ -43,12 +40,7 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
     protected virtual void layoutObjects()
     {
-        if (prefabsSet.Window != null)
-        {
-            prefabsSet.Window.SetActive(true);
-        }
-
-        foreach (var n in prefabsSet.Buttons)
+        foreach (var n in select.Buttons)
         {
             n.SetActive(false);
         }
@@ -68,11 +60,7 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
     public override void SimpleClose()
     {
         //UIを消す
-        if (prefabsSet.Window != null)
-        {
-            prefabsSet.Window.SetActive(false);
-        }
-        foreach (var n in prefabsSet.Buttons)
+        foreach (var n in select.Buttons)
         {
             n.SetActive(false);
             n.transform.localScale = new Vector3(1, 1, 1);
@@ -85,16 +73,16 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
     protected virtual void selectObject(int count)
     {
         //アニメーションさせる
-        for (int i = 0; i < prefabsSet.Buttons.Count; i++)
+        for (int i = 0; i < select.Buttons.Count; i++)
         {
             if (i == count)
             {
-                prefabsSet.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
+                select.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
             }
 
-            else if (prefabsSet.Buttons[i].activeSelf == true)
+            else if (select.Buttons[i].activeSelf == true)
             {
-                prefabsSet.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
+                select.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
             }
         }
     }

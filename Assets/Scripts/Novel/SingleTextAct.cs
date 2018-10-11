@@ -6,25 +6,20 @@ public class SingleTextAct : AbstractTextAct
     List<TextBox> textChain;
 
     //リストに残るもの
-    public SingleTextAct(string textFile, Exec exec)
+    public SingleTextAct(string fileName, Exec exec) : base(fileName, exec)
     {
-        var text = new TextData(textFile);
-        textChain = text.TextBoxChain;
-        ReturnAct = exec;
+        textChain = textData.TextBoxChain;
     }
     //一時的なもの
-    public SingleTextAct(List<TextBox> chain, Exec exec)
+    public SingleTextAct(List<TextBox> chain, Exec exec) : base(exec)
     {
-        Name = "ProxyText";
         textChain = chain;
-        ReturnAct = exec;
     }
 
     public override void StartUp()
     {
         base.StartUp();
 
-        //イテレータ―の初期化
         textIterator = 0;
 
         if (textChain.Count == 0) { Close(); }

@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStorageAct>
 {
-    TownBaseAct townBaseAct;
-
     public abstract class AStorageAct
     {
         public string Name;
@@ -19,7 +17,7 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
     {
         public PutItem(Exec exec) : base(exec)
         {
-            Name = "PutItemAct";
+            Name = "収納する";
         }
         public override void Action()
         {
@@ -31,7 +29,7 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
     {
         public PullItem(Exec exec) : base(exec)
         {
-            Name = "PullItemAct";
+            Name = "持ち出す";
         }
         public override void Action()
         {
@@ -39,11 +37,9 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
         }
     }
 
+    GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public AttelierStorageAct(string name, UIPrefabsSet pSet, Exec exec, TownBaseAct tbAct) : base(name, pSet, exec)
-    {
-        townBaseAct = tbAct;
-    }
+    public AttelierStorageAct(VerticalSelect _select, Exec exec) : base(_select, exec) { }
 
     protected override void loadObjects()
     {
@@ -56,29 +52,29 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
     {
         base.layoutObjects();
 
-        prefabsSet.Window.SetActive(false);
-        prefabsSet.Window.transform.GetChild(0).GetComponent<Text>().text = "";
+        description.SetActive(false);
+        description.transform.GetChild(0).GetComponent<Text>().text = "";
 
-        townBaseAct.OpenImage();
+        AdvPartManager.Instance.ActivateFacilityImage(true);
 
         for (int i = 0; i < objects.Count + 1; i++)
         {
-            prefabsSet.Buttons[i].SetActive(true);
+            select.Buttons[i].SetActive(true);
 
             if (i < objects.Count)
             {
-                prefabsSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i].Name;
+                select.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = objects[i].Name;
             }
             else if (i == objects.Count)
             {
-                prefabsSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = "キャンセル";
+                select.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = "キャンセル";
             }
         }
     }
 
     public override void SimpleClose()
     {
-        townBaseAct.CloseImage();
+        AdvPartManager.Instance.ActivateFacilityImage(false);
         base.SimpleClose();
     }
 
@@ -127,9 +123,9 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
 
 public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
 {
-    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+    GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public AStoragePutAct(string name, Exec exec) : base(name, exec) { }
+    public AStoragePutAct(Exec exec) : base(exec) { }
 
     protected override void loadObjects()
     {
@@ -138,7 +134,7 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
 
     public override void Close()
     {
-        itemDescription.SetActive(false);
+        description.SetActive(false);
         base.Close();
     }
 
@@ -151,18 +147,18 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
         //アイテムの説明更新
         if (uiCount + slideNow * columnCount < innerMax - 1)
         {
-            itemDescription.SetActive(true);
+            this.description.SetActive(true);
 
             var description
                 = objects[uiCount + slideNow * columnCount].Name + "\n"
                 + objects[uiCount + slideNow * columnCount].Description;
-            itemDescription.transform.GetChild(0).GetComponent<Text>().text = description;
+            this.description.transform.GetChild(0).GetComponent<Text>().text = description;
         }
 
         if (uiCount + slideNow * columnCount == innerMax - 1)
         {
-            itemDescription.SetActive(false);
-            itemDescription.transform.GetChild(0).GetComponent<Text>().text = "";
+            description.SetActive(false);
+            description.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 
@@ -186,9 +182,9 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
 
 public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
 {
-    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+    GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public AStoragePullAct(string name, Exec exec) : base(name, exec) { }
+    public AStoragePullAct(Exec exec) : base(exec) { }
 
     protected override void loadObjects()
     {
@@ -197,10 +193,7 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
 
     public override void Close()
     {
-
-
-
-        itemDescription.SetActive(false);
+        description.SetActive(false);
         base.Close();
     }
 
@@ -213,18 +206,18 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
         //アイテムの説明更新
         if (uiCount + slideNow * columnCount < innerMax - 1)
         {
-            itemDescription.SetActive(true);
+            this.description.SetActive(true);
 
             var description
                 = objects[uiCount + slideNow * columnCount].Name + "\n"
                 + objects[uiCount + slideNow * columnCount].Description;
-            itemDescription.transform.GetChild(0).GetComponent<Text>().text = description;
+            this.description.transform.GetChild(0).GetComponent<Text>().text = description;
         }
 
         if (uiCount + slideNow * columnCount == innerMax - 1)
         {
-            itemDescription.SetActive(false);
-            itemDescription.transform.GetChild(0).GetComponent<Text>().text = "";
+            description.SetActive(false);
+            description.transform.GetChild(0).GetComponent<Text>().text = "";
         }
     }
 

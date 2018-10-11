@@ -9,13 +9,12 @@ public class TownBaseAct : AbstractTownAct
 
     TownBaseIterator advIterator;
 
-    TownBaseSet townBaseSet;
+    VerticalSelect select { get { return AdvPartManager.Instance.GetBasicSelect; } }
+    GameObject facilityImage { get { return AdvPartManager.Instance.FacilityImage; } }
 
     //コンストラクタ
-    public TownBaseAct(string name, TownBaseSet component)
+    public TownBaseAct()
     {
-        Name = name;
-        townBaseSet = component;
         Facilities = new List<Facility>() { new Atelier(), new Coffee(), new Market(), new Dungeon() };
         advIterator = new TownBaseIterator(Facilities.Select(n => n.FacilityActs.Count).ToArray());
     }
@@ -25,7 +24,7 @@ public class TownBaseAct : AbstractTownAct
     {
         base.StartUp();
 
-        OpenImage();
+        AdvPartManager.Instance.ActivateFacilityImage(true);
 
         enterFacility(advIterator.Facility);
 
@@ -35,21 +34,7 @@ public class TownBaseAct : AbstractTownAct
     //AdvPartManagerでの一時消し
     public override void Close()
     {
-        foreach (var a in townBaseSet.Buttons)
-        {
-            a.transform.localScale = new Vector3(1, 1, 1);
-            a.SetActive(false);
-        }
-    }
-
-    public void CloseImage()
-    {
-        townBaseSet.FacilityImage.SetActive(false);
-    }
-
-    public void OpenImage()
-    {
-        townBaseSet.FacilityImage.SetActive(true);
+        select.Close();
     }
 
     //施設の移動（準備）
@@ -68,7 +53,7 @@ public class TownBaseAct : AbstractTownAct
             selectFacilityActs(advIterator.FacilityAct);
         }
 
-        townBaseSet.BGFacility.sprite = townBaseSet.facilitySprites[advIterator.TempFacility];
+        facilityImage.GetComponent<ImageUI>().SwitchImage(advIterator.TempFacility);
     }
 
     void visitFacility(int facilityNumber)
@@ -99,12 +84,12 @@ public class TownBaseAct : AbstractTownAct
         Close();
 
         //施設のActに合わせてボタンを更新
-        for (int i = 0; i < townBaseSet.Buttons.Count; i++)
+        for (int i = 0; i < select.Buttons.Count; i++)
         {
             if (i < facility.FacilityActs.Count)
             {
-                townBaseSet.Buttons[i].SetActive(true);
-                townBaseSet.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = facility.FacilityActs[i].Name;
+                select.Buttons[i].SetActive(true);
+                select.Buttons[i].transform.GetChild(0).GetComponent<Text>().text = facility.FacilityActs[i].Name;
             }
         }
 
@@ -115,15 +100,15 @@ public class TownBaseAct : AbstractTownAct
     //行動選択アニメーター
     void selectFacilityActs(int ActNumber)
     {
-        for (int i = 0; i < townBaseSet.Buttons.Count; i++)
+        for (int i = 0; i < select.Buttons.Count; i++)
         {
             if (i == ActNumber)
             {
-                townBaseSet.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
+                select.Buttons[i].GetComponent<Animator>().SetTrigger("IsSelect");
             }
-            else if (townBaseSet.Buttons[i].activeSelf == true)
+            else if (select.Buttons[i].activeSelf == true)
             {
-                townBaseSet.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
+                select.Buttons[i].GetComponent<Animator>().SetBool("IsSelect", false);
             }
         }
     }
@@ -131,7 +116,7 @@ public class TownBaseAct : AbstractTownAct
     public override void Refresh()
     {
         base.Refresh();
-        foreach(var n in Facilities) { n.Refresh(); }
+        foreach (var n in Facilities) { n.Refresh(); }
     }
 
     //コントロール

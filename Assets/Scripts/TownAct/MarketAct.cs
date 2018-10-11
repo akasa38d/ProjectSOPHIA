@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
 {
-    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+    GameObject itemDescription { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public MarketPurchaseAct(string name, Exec exec) : base(name, exec) { }
+    public MarketPurchaseAct(Exec exec) : base(exec) { }
 
     protected override void loadObjects()
     {
@@ -79,9 +79,9 @@ public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
 
 public class MarketSellAct : AbstractSecondItemAct<MarketSellAct>
 {
-    GameObject itemDescription { get { return AdvPartManager.Instance.GetItemDescription; } }
+    GameObject itemDescription { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public MarketSellAct(string name, Exec exec) : base(name, exec) { }
+    public MarketSellAct(Exec exec) : base(exec) { }
 
     protected override void loadObjects()
     {

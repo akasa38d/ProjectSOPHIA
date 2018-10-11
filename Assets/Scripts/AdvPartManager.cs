@@ -1,10 +1,74 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
 {
     PrefabsManager prefabsManager { get { return PrefabsManager.Instance; } }
+
+    #region 実体化するゲームオブジェクト
+
+    GameObject basicSelect;
+    public VerticalSelect GetBasicSelect
+    {
+        get
+        {
+            if (basicSelect == null)
+            {
+                basicSelect = Instantiate(prefabsManager.BasicSelectButton);
+                basicSelect.transform.SetParent(AdvCanvas.transform, false);
+            }
+            return basicSelect.GetComponent<VerticalSelect>();
+        }
+    }
+
+    GameObject basicSelectRight;
+    VerticalSelect GetBasicSelectRight
+    {
+        get
+        {
+            if (basicSelectRight == null)
+            {
+                basicSelectRight = Instantiate(prefabsManager.BasicSelectRight);
+                basicSelectRight.transform.SetParent(AdvCanvas.transform, false);
+            }
+            return basicSelectRight.GetComponent<VerticalSelect>();
+        }
+    }
+
+    GameObject twoTopicSelect;
+    VerticalSelect GetTwoTopicSelect
+    {
+        get
+
+        {
+            if (twoTopicSelect == null)
+            {
+                twoTopicSelect = Instantiate(prefabsManager.TwoTopicSelect);
+                twoTopicSelect.transform.SetParent(AdvCanvas.transform, false);
+            }
+            return twoTopicSelect.GetComponent<VerticalSelect>();
+        }
+    }
+
+    GameObject facilityImage;
+    public GameObject FacilityImage
+    {
+        get
+        {
+            if (facilityImage == null)
+            {
+                facilityImage = Instantiate(prefabsManager.FacilityImage);
+                facilityImage.transform.SetParent(AdvCanvas.transform, false);
+            }
+            return facilityImage;
+        }
+    }
+    public void ActivateFacilityImage(bool isOpen)
+    {
+        FacilityImage.SetActive(isOpen);
+    }
 
     GameObject itemSet;
     public GameObject GetItemSet
@@ -20,19 +84,21 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         }
     }
 
-    GameObject itemDescription;
-    public GameObject GetItemDescription
+    GameObject description;
+    public GameObject GetDescription
     {
         get
         {
-            if (itemDescription == null)
+            if (description == null)
             {
-                itemDescription = Instantiate(prefabsManager.ItemDescription);
-                itemDescription.transform.SetParent(AdvCanvas.transform, false);
+                description = Instantiate(prefabsManager.ItemDescription);
+                description.transform.SetParent(AdvCanvas.transform, false);
             }
-            return itemDescription;
+            return description;
         }
     }
+
+    #endregion
 
     //キャンバス
     [SerializeField]
@@ -40,95 +106,53 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     [SerializeField]
     GameObject MenuCanvas;
 
+    #region 各Actを呼び出すメソッド
+
     //タウン各地での操作・行動
     public AbstractTownAct CurrentAct;
-    TownBaseAct townBaseAct;    //(TownbaseAct)にキャストすべき？actListと別にすべき？
-
-    List<AbstractTownAct> actList = new List<AbstractTownAct>();
-    AbstractTownAct getAct(string name)
+    TownBaseAct TownBaseAct;
+    Dictionary<string, AbstractTownAct> actDict = new Dictionary<string, AbstractTownAct>();
+    AbstractTownAct getAct(string key)
     {
-        var acts = actList.Where(n => n.Name == name);
-        if (acts.Count() == 0)
-        {
-            return null;
-        }
-        return acts.First();
-    }
-
-    //テキスト関係
-    List<AbstractTextAct> textActList = new List<AbstractTextAct>();
-    AbstractTextAct getTextAct(string fileName)
-    {
-        //一度しかInstantiateしないならactListに統合できる？
-        var acts = textActList.Where(n => n.Name == fileName);
-        if (acts.Count() == 0)
-        {
-            var textFile = Resources.Load(fileName).ToString();
-            var prefabsSet = Instantiate(prefabsManager.TownTalkSet);
-            prefabsSet.transform.SetParent(AdvCanvas.transform, false);
-            textActList.Add(new MultiTextAct(textFile, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp) { Name = fileName });
-        }
-        return acts.Last();
+        if (!actDict.ContainsKey(key)) { return null; }
+        return actDict[key];
     }
 
     //タウンのベース
     public void StartUpTownBase()
     {
-        var name = "TownBase";
-        if (townBaseAct == null)
-        {
-            var prefabsSet = Instantiate(prefabsManager.TownBaseSet);
-            prefabsSet.transform.SetParent(AdvCanvas.transform, false);
-            townBaseAct = new TownBaseAct(name, prefabsSet.GetComponent<TownBaseSet>());
-        }
-        townBaseAct.StartUp();
+        if (TownBaseAct == null) { TownBaseAct = new TownBaseAct(); }
+        TownBaseAct.StartUp();
     }
 
     //その場での会話
     public void StartUpSingleText(string fileName)
     {
-        var textFile = Resources.Load(fileName).ToString();
-
-        var acts = textActList.Where(n => n.Name == fileName);
-
-        if (acts.Count() == 0)
-        {
-            textActList.Add(new SingleTextAct(textFile, townBaseAct.StartUp) { Name = fileName });
-        }
-
-        textActList.Where(n => n.Name == fileName).First().StartUp();
-
-        townBaseAct.Close();
+        if (getAct(fileName) == null) { actDict.Add(fileName, new SingleTextAct(fileName, TownBaseAct.StartUp)); }
+        getAct(fileName).StartUp();
+        TownBaseAct.Close();
     }
 
     //複数人から選んで会話
     public void StartUpMultiText(string fileName)
     {
-        getTextAct(fileName).StartUp();
-        townBaseAct.Close();
+        if (getAct(fileName) == null) { actDict.Add(fileName, new MultiTextAct(fileName, GetBasicSelectRight, TownBaseAct.StartUp)); }
+        getAct(fileName).StartUp();
+        TownBaseAct.Close();
     }
 
     public void StartUpAtelierStorage()
     {
-        //CoffeeRequestSetは仮
         var name = "AtelierStorage";
-        if (getAct(name) == null)
-        {
-            var prefabsSet = Instantiate(prefabsManager.CoffeeRequestSet);
-            prefabsSet.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new AttelierStorageAct(name, prefabsSet.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp, townBaseAct));
-        }
+        if (getAct(name) == null) { actDict.Add(name, new AttelierStorageAct(GetBasicSelect, TownBaseAct.StartUp)); }
+        TownBaseAct.Close();
         getAct(name).StartUp();
-        townBaseAct.Close();
     }
 
     public void StartUpAtelierStoragePut(AbstractTownAct.Exec exec)
     {
         var name = "AtelierStoragePut";
-        if (getAct(name) == null)
-        {
-            actList.Add(new AStoragePutAct(name, exec));
-        }
+        if (getAct(name) == null) { actDict.Add(name, new AStoragePutAct(exec)); }
         CurrentAct.SimpleClose();
         getAct(name).StartUp();
     }
@@ -136,10 +160,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     public void StartUpAtelierStoragePull(AbstractTownAct.Exec exec)
     {
         var name = "AtelierStoragePull";
-        if (getAct(name) == null)
-        {
-            actList.Add(new AStoragePullAct(name, exec));
-        }
+        if (getAct(name) == null) { actDict.Add(name, new AStoragePullAct(exec)); }
         CurrentAct.SimpleClose();
         getAct(name).StartUp();
     }
@@ -147,40 +168,31 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     public void StartUpCoffeeRequest()
     {
         var name = "CoffeeRequest";
-        if (getAct(name) == null)
-        {
-            var gameObject = Instantiate(prefabsManager.CoffeeRequestSet);
-            gameObject.transform.SetParent(AdvCanvas.transform, false);
-            actList.Add(new CoffeeRequestAct(name, gameObject.GetComponent<UIPrefabsSet>(), townBaseAct.StartUp));
-        }
+        if (getAct(name) == null) { actDict.Add(name, new CoffeeRequestAct(GetTwoTopicSelect, TownBaseAct.StartUp)); }
         getAct(name).StartUp();
-        townBaseAct.Close();
-        townBaseAct.CloseImage();
+        TownBaseAct.Close();
+        ActivateFacilityImage(false);
     }
 
     public void StartUpMarketPurchase()
     {
         var name = "MarketPurchase";
-        if (getAct(name) == null)
-        {
-            actList.Add(new MarketPurchaseAct(name, townBaseAct.StartUp));
-        }
+        if (getAct(name) == null) { actDict.Add(name, new MarketPurchaseAct(TownBaseAct.StartUp)); }
         getAct(name).StartUp();
-        townBaseAct.Close();
-        townBaseAct.CloseImage();
+        TownBaseAct.Close();
+        ActivateFacilityImage(false);
     }
 
     public void StartUpMarketSell()
     {
         var name = "MarketSell";
-        if (getAct(name) == null)
-        {
-            actList.Add(new MarketSellAct(name, townBaseAct.StartUp));
-        }
+        if (getAct(name) == null) { actDict.Add(name, new MarketSellAct(TownBaseAct.StartUp)); }
         getAct(name).StartUp();
-        townBaseAct.Close();
-        townBaseAct.CloseImage();
+        TownBaseAct.Close();
+        ActivateFacilityImage(false);
     }
+
+    #endregion
 
     public void OpenMenuAct()
     {
@@ -206,7 +218,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
 
     public void RefreshActs()
     {
-        townBaseAct.Refresh();
-        foreach (var n in actList) { n.Refresh(); }
+        TownBaseAct.Refresh();
+        foreach (var n in actDict.Values) { n.Refresh(); }
     }
 }

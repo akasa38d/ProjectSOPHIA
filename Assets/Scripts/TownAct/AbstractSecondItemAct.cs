@@ -16,9 +16,8 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     protected List<ItemBase> objects;
 
-    public AbstractSecondItemAct(string name, Exec exec)
+    public AbstractSecondItemAct(Exec exec)
     {
-        Name = name;
         itemSet = AdvPartManager.Instance.GetItemSet.GetComponent<ItemSet>();
         ReturnAct = exec;
         loadObjects();
