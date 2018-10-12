@@ -6,7 +6,7 @@ public static class LoadManager
 {
     public static void LoadPlayerDataAwake()
     {
-        //        InitPlayerData();
+ //       InitPlayerData();
     }
 
     public static void LoadPlayerDataStart()
@@ -17,7 +17,7 @@ public static class LoadManager
     public static void InitPlayerData()
     {
         PlayerDataManager.Instance.Parameter = new PlayerParameter();
-        SaveData.SetClass<PlayerSaveData>("p1", new PlayerSaveData());
+        SaveData.SetClass("p1", new PlayerSaveData());
         SaveData.Save();
     }
 
@@ -41,7 +41,7 @@ public static class LoadManager
         var playerDataManager = PlayerDataManager.Instance;
         var dataBaseManager = DataBaseManager.Instance;
 
-        var saveData = SaveData.GetClass<PlayerSaveData>("p1", new PlayerSaveData());
+        var saveData = SaveData.GetClass("p1", new PlayerSaveData());
         playerDataManager.Day = saveData.Day;
         playerDataManager.Stamina = saveData.Stamina;
         playerDataManager.Money = saveData.Money;
@@ -99,11 +99,10 @@ public static class LoadManager
             ItemIDs.Add(3);
 
             StorageItemIDs = new List<int>();
-            StorageItemIDs.Add(4);
-            StorageItemIDs.Add(4);
-            StorageItemIDs.Add(4);
-            StorageItemIDs.Add(4);
-            StorageItemIDs.Add(4);
+            for (int i = 0; i < 42; i++)
+            {
+                StorageItemIDs.Add(4);
+            }
         }
 
         public void SetItemIDs()
@@ -123,8 +122,5 @@ public static class LoadManager
                 StorageItemIDs.Add(n.ID);
             }
         }
-
-
     }
-
 }

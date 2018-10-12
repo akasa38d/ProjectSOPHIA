@@ -7,7 +7,7 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
 {
     GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public CoffeeRequestAct(VerticalSelect _select, Exec exec) : base(_select, exec) { }
+    public CoffeeRequestAct(SelectLayout _select, Exec exec) : base(_select, exec) { }
 
     protected override void loadObjects()
     {

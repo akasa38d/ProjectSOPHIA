@@ -784,7 +784,7 @@ MonoBehaviour:
     type: 2}
   facilityImage: {fileID: 1415259548352946, guid: d3cd957e76e383e45b79753c86f070c4,
     type: 2}
-  itemSetPrefabs: {fileID: 1111101088214044, guid: 227f139cd074a244692d782c23ba8e98,
+  itemSetPrefabs: {fileID: 1505389970596980, guid: 227f139cd074a244692d782c23ba8e98,
     type: 2}
   itemDescription: {fileID: 1313054072540504, guid: 9e1ac3a6863d6bd44b99333b10cb5cf8,
     type: 2}

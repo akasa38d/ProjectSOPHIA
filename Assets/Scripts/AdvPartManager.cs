@@ -10,7 +10,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     #region 実体化するゲームオブジェクト
 
     GameObject basicSelect;
-    public VerticalSelect GetBasicSelect
+    public SelectLayout GetBasicSelect
     {
         get
         {
@@ -19,12 +19,12 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
                 basicSelect = Instantiate(prefabsManager.BasicSelectButton);
                 basicSelect.transform.SetParent(AdvCanvas.transform, false);
             }
-            return basicSelect.GetComponent<VerticalSelect>();
+            return basicSelect.GetComponent<SelectLayout>();
         }
     }
 
     GameObject basicSelectRight;
-    VerticalSelect GetBasicSelectRight
+    SelectLayout GetBasicSelectRight
     {
         get
         {
@@ -33,12 +33,12 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
                 basicSelectRight = Instantiate(prefabsManager.BasicSelectRight);
                 basicSelectRight.transform.SetParent(AdvCanvas.transform, false);
             }
-            return basicSelectRight.GetComponent<VerticalSelect>();
+            return basicSelectRight.GetComponent<SelectLayout>();
         }
     }
 
     GameObject twoTopicSelect;
-    VerticalSelect GetTwoTopicSelect
+    SelectLayout GetTwoTopicSelect
     {
         get
 
@@ -48,7 +48,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
                 twoTopicSelect = Instantiate(prefabsManager.TwoTopicSelect);
                 twoTopicSelect.transform.SetParent(AdvCanvas.transform, false);
             }
-            return twoTopicSelect.GetComponent<VerticalSelect>();
+            return twoTopicSelect.GetComponent<SelectLayout>();
         }
     }
 

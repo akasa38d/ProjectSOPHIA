@@ -39,7 +39,7 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
 
     GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
-    public AttelierStorageAct(VerticalSelect _select, Exec exec) : base(_select, exec) { }
+    public AttelierStorageAct(SelectLayout _select, Exec exec) : base(_select, exec) { }
 
     protected override void loadObjects()
     {

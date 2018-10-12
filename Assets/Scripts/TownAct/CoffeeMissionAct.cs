@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CoffeeMissionAct : AbstractSecondTownAct<CoffeeMissionAct>
 {
-    VerticalSelectLong verticalSelectBoxes;
+    SelectLayoutLong verticalSelectBoxes;
 
     SingleIterator iterator;
 
-    public CoffeeMissionAct(VerticalSelectLong select, Exec exec):base(select, exec)
+    public CoffeeMissionAct(SelectLayoutLong select, Exec exec):base(select, exec)
     {
         ReturnAct = exec;
     }

@@ -15,14 +15,14 @@ public class Item
     public Item(int baseID, int propID)
     {
         BaseID = baseID;
-        PropID = new int[3] { propID, 0, 0 };
+        PropID = new int[2] { propID, 0 };
         createItem();
     }
 
-    public Item(int baseID, int propID1, int propID2, int propID3)
+    public Item(int baseID, int propID1, int propID2)
     {
         BaseID = baseID;
-        PropID = new int[3] { propID1, propID2, propID3 };
+        PropID = new int[2] { propID1, propID2};
         createItem();
     }
 
@@ -30,8 +30,8 @@ public class Item
     {
         var dataBase = DataBaseManager.Instance;
         Base = dataBase.GetItemBase(BaseID);
-        Prop = new ItemProperty[3] { dataBase.GetItemProp(PropID[0]), dataBase.GetItemProp(PropID[1]), dataBase.GetItemProp(PropID[2]) };
-        PropIsActive = new bool[3] { checkActive(Prop[0].Type), checkActive(Prop[1].Type), checkActive(Prop[2].Type) };
+        Prop = new ItemProperty[2] { dataBase.GetItemProp(PropID[0]), dataBase.GetItemProp(PropID[1]) };
+        PropIsActive = new bool[2] { checkActive(Prop[0].Type), checkActive(Prop[1].Type) };
     }
 
     #endregion
@@ -48,8 +48,7 @@ public class Item
         {
             return Base.Value
                 * buff(PropIsActive[0] == true ? Prop[0].Value : 0)
-                * buff(PropIsActive[1] == true ? Prop[1].Value : 0)
-                * buff(PropIsActive[2] == true ? Prop[2].Value : 0);
+                * buff(PropIsActive[1] == true ? Prop[1].Value : 0);
         }
     }
     public int Price
@@ -58,8 +57,7 @@ public class Item
         {
             return Base.Price
                 * buff(PropIsActive[0] == true ? Prop[0].Price : 0)
-                * buff(PropIsActive[1] == true ? Prop[0].Price : 0)
-                * buff(PropIsActive[2] == true ? Prop[0].Price : 0);
+                * buff(PropIsActive[1] == true ? Prop[0].Price : 0);
         }
     }
     public int Quality
@@ -68,8 +66,7 @@ public class Item
         {
             return Base.Quality
             * buff(PropIsActive[0] == true ? Prop[0].Quality : 0)
-            * buff(PropIsActive[1] == true ? Prop[0].Quality : 0)
-            * buff(PropIsActive[2] == true ? Prop[0].Quality : 0);
+            * buff(PropIsActive[1] == true ? Prop[0].Quality : 0);
         }
     }
     public int Range
@@ -78,8 +75,7 @@ public class Item
         {
             return Base.Quality
             * buff(PropIsActive[0] == true ? Prop[0].Range : 0)
-            * buff(PropIsActive[1] == true ? Prop[0].Range : 0)
-            * buff(PropIsActive[2] == true ? Prop[0].Range : 0);
+            * buff(PropIsActive[1] == true ? Prop[0].Range : 0);
         }
     }
     public int InitNum
@@ -88,8 +84,7 @@ public class Item
         {
             return Base.Quality
             * buff(PropIsActive[0] == true ? Prop[0].InitNum : 0)
-            * buff(PropIsActive[1] == true ? Prop[0].InitNum : 0)
-            * buff(PropIsActive[2] == true ? Prop[0].InitNum : 0);
+            * buff(PropIsActive[1] == true ? Prop[0].InitNum : 0);
         }
     }
 

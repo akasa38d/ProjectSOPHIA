@@ -12,13 +12,13 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
     protected int innerNow { get { return itemIterator.InnerNow; } }
     protected int innerMax { get { return itemIterator.InnerMax; } }
 
-    protected ItemSet itemSet;
+    protected SelectLayoutLong itemSet;
 
     protected List<ItemBase> objects;
 
     public AbstractSecondItemAct(Exec exec)
     {
-        itemSet = AdvPartManager.Instance.GetItemSet.GetComponent<ItemSet>();
+        itemSet = AdvPartManager.Instance.GetItemSet.GetComponent<SelectLayoutLong>();
         ReturnAct = exec;
         loadObjects();
     }
@@ -73,10 +73,10 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
             }
         }
 
-        if (slideNow == 0) { itemSet.UpButton.SetActive(false); }
-        if(slideNow > 0) { itemSet.UpButton.SetActive(true); }
-        if(slideNow < slideMax) { itemSet.DownButton.SetActive(true); }
-        if (slideNow == slideMax) { itemSet.DownButton.SetActive(false); }
+        if (slideNow == 0) { itemSet.UpIcon.SetActive(false); }
+        if(slideNow > 0) { itemSet.UpIcon.SetActive(true); }
+        if(slideNow < slideMax) { itemSet.DownIcon.SetActive(true); }
+        if (slideNow == slideMax) { itemSet.DownIcon.SetActive(false); }
     }
 
     public override void Close()
@@ -89,8 +89,8 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
             n.transform.localScale = new Vector3(1, 1, 1);
         }
 
-        itemSet.UpButton.SetActive(false);
-        itemSet.DownButton.SetActive(false);
+        itemSet.UpIcon.SetActive(false);
+        itemSet.DownIcon.SetActive(false);
 
         //返還
         ReturnAct();

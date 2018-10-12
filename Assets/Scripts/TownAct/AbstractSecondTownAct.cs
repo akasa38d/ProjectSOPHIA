@@ -6,11 +6,11 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 {
     protected SingleIterator singleIterator;
 
-    protected VerticalSelect select;
+    protected SelectLayout select;
 
     protected List<T> objects;
 
-    public AbstractSecondTownAct(VerticalSelect _select, Exec exec)
+    public AbstractSecondTownAct(SelectLayout _select, Exec exec)
     {
         //オブジェクトの設定
         select = _select;

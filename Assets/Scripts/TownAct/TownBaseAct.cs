@@ -9,7 +9,7 @@ public class TownBaseAct : AbstractTownAct
 
     TownBaseIterator advIterator;
 
-    VerticalSelect select { get { return AdvPartManager.Instance.GetBasicSelect; } }
+    SelectLayout select { get { return AdvPartManager.Instance.GetBasicSelect; } }
     GameObject facilityImage { get { return AdvPartManager.Instance.FacilityImage; } }
 
     //コンストラクタ
