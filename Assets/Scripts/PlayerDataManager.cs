@@ -58,15 +58,12 @@ public class PlayerDataManager : SingletonMonoBehaviour<PlayerDataManager>
     //貯金
     public int MoneySaving;
 
-    //手持アイテム限界（成長有り）
     public int ItemsSize = 30;
-    //手持ちのアイテム（仮）
     public List<ItemBase> Items = new List<ItemBase>();
+
     //装備（武器、防具、アクセサリー）
 
-    //保管庫アイテム限界（成長有り）
     public int ItemStorageSize = 120;
-    //保管庫のアイテム（仮）
     public List<ItemBase> ItemStorage = new List<ItemBase>();
 
     new void Awake()

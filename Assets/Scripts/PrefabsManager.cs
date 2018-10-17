@@ -2,7 +2,7 @@
 
 public class PrefabsManager : SingletonMonoBehaviour<PrefabsManager>
 {
-    #region Adv
+    #region ADV
 
     [SerializeField]
     GameObject basicSelectButton;
@@ -19,6 +19,14 @@ public class PrefabsManager : SingletonMonoBehaviour<PrefabsManager>
     [SerializeField]
     GameObject facilityImage;
     public GameObject FacilityImage { get { return facilityImage; } }
+
+    #endregion
+
+    #region RPG
+
+    [SerializeField]
+    GameObject planeSquare;
+    public GameObject PlaneSquare { get { return planeSquare; } }
 
     #endregion
 

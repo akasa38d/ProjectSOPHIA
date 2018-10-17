@@ -14,7 +14,7 @@ public class Controller : SingletonMonoBehaviour<Controller>
 
     public void Update()
     {
-        controlUpdate();
+        controlUpdate?.Invoke();
 
         for (int i = 0; i < CatchButtonsCount; i++)
         {

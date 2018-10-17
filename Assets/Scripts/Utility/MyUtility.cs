@@ -20,6 +20,11 @@ namespace MyUtility
             X = x;
             Y = y;
         }
+
+        public override string ToString()
+        {
+            return "(" + X.ToString() + ", " + Y.ToString() + ")";
+        }
     }
 
     public static class Util

@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_11;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_2_12;UNITY_2018_2;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_PACKMAN;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_WIN;PLATFORM_STANDALONE;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_OUT_OF_PROCESS_CRASH_HANDLER;ENABLE_EVENT_QUEUE;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_4_6;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -49,7 +49,7 @@
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
-    <UnityVersion>2018.2.11f1</UnityVersion>
+    <UnityVersion>2018.2.12f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -60,14 +60,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AdvPartManager.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\AdvPartManager.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\Menu\AbstractMenuAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\Menu\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\Text\AbstractTextAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\Text\MultiTextAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\Text\SingleTextAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\Text\TextlData.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\AbstractSecondItemAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\AbstractSecondTownAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\AbstractTownAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\AttelierStorageAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\CoffeeMissionAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\CoffeeRequestAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\Facility\AbstractFacility.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\Facility\AtelierFacility.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\Facility\CoffeeHouseFacility.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\Facility\DungeonFacility.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\Facility\MarketFacility.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\MarketAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\TownBaseAct.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\UIPrefab\ButtonUI.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\UIPrefab\DescriptionUI.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\UIPrefab\ImageUI.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\UIPrefab\SelectLayout.cs" />
+    <Compile Include="Assets\Scripts\AdvPart\TownAct\UIPrefab\SelectLayoutLong.cs" />
     <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\DataBaseManager.cs" />
-    <Compile Include="Assets\Scripts\Facility\AbstractFacility.cs" />
-    <Compile Include="Assets\Scripts\Facility\AtelierFacility.cs" />
-    <Compile Include="Assets\Scripts\Facility\CoffeeHouseFacility.cs" />
-    <Compile Include="Assets\Scripts\Facility\DungeonFacility.cs" />
-    <Compile Include="Assets\Scripts\Facility\MarketFacility.cs" />
     <Compile Include="Assets\Scripts\FrameUIManager.cs" />
     <Compile Include="Assets\Scripts\GameData\CharacterBase.cs" />
     <Compile Include="Assets\Scripts\GameData\DungeonData.cs" />
@@ -76,28 +95,11 @@
     <Compile Include="Assets\Scripts\GameData\RunnerData.cs" />
     <Compile Include="Assets\Scripts\GameData\TrapData.cs" />
     <Compile Include="Assets\Scripts\LoadManager.cs" />
-    <Compile Include="Assets\Scripts\Menu\AbstractMenuAct.cs" />
-    <Compile Include="Assets\Scripts\Menu\MenuManager.cs" />
     <Compile Include="Assets\Scripts\PlayerDataManager.cs" />
     <Compile Include="Assets\Scripts\PrefabsManager.cs" />
+    <Compile Include="Assets\Scripts\RPGPart\MazeBuilder.cs" />
+    <Compile Include="Assets\Scripts\RPGPart\RPGPartManager.cs" />
     <Compile Include="Assets\Scripts\SaveData.cs" />
-    <Compile Include="Assets\Scripts\Text\AbstractTextAct.cs" />
-    <Compile Include="Assets\Scripts\Text\MultiTextAct.cs" />
-    <Compile Include="Assets\Scripts\Text\SingleTextAct.cs" />
-    <Compile Include="Assets\Scripts\Text\TextlData.cs" />
-    <Compile Include="Assets\Scripts\TownAct\AbstractSecondItemAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\AbstractSecondTownAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\AbstractTownAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\AttelierStorageAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\CoffeeMissionAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\CoffeeRequestAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\MarketAct.cs" />
-    <Compile Include="Assets\Scripts\TownAct\PrefabSet\ButtonUI.cs" />
-    <Compile Include="Assets\Scripts\TownAct\PrefabSet\DescriptionUI.cs" />
-    <Compile Include="Assets\Scripts\TownAct\PrefabSet\ImageUI.cs" />
-    <Compile Include="Assets\Scripts\TownAct\PrefabSet\SelectLayout.cs" />
-    <Compile Include="Assets\Scripts\TownAct\PrefabSet\SelectLayoutLong.cs" />
-    <Compile Include="Assets\Scripts\TownAct\TownBaseAct.cs" />
     <Compile Include="Assets\Scripts\Utility\Iterator.cs" />
     <Compile Include="Assets\Scripts\Utility\MyUtility.cs" />
     <Compile Include="Assets\Scripts\Utility\SingletonMonoBehaviour.cs" />
