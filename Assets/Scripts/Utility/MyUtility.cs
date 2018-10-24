@@ -21,14 +21,37 @@ namespace MyUtility
             Y = y;
         }
 
+        public IntVector2(IntVector2 intVector2)
+        {
+            X = intVector2.X;
+            Y = intVector2.Y;
+        }
+
         public override string ToString()
         {
             return "(" + X.ToString() + ", " + Y.ToString() + ")";
         }
+
+        public static IntVector2 operator +(IntVector2 intVect2A, IntVector2 intVect2B)
+        {
+            return new IntVector2(intVect2A.X + intVect2B.X, intVect2A.Y + intVect2B.Y);
+        }
+
+        public static IntVector2 operator -(IntVector2 intVect2A, IntVector2 intVect2B)
+        {
+            return new IntVector2(intVect2A.X - intVect2B.X, intVect2A.Y - intVect2B.Y);
+        }
     }
+
 
     public static class Util
     {
+        public static T RandomEnumValue<T>()
+        {
+            var v = Enum.GetValues(typeof(T));
+            return (T)v.GetValue(new Random().Next(v.Length));
+        }
+
         public static int Range(int now, int min, int max)
         {
             if (now > max) { return max; }
