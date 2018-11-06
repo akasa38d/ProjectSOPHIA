@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Linq;
 using System;
+using MyUtility;
 
 public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
 {
@@ -10,6 +11,8 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
     public List<ItemBase> ItemBaseTable = new List<ItemBase>();
     public List<ItemProperty> ItemPropertyTable = new List<ItemProperty>();
     public List<RunnerBase> RunnerBaseTable = new List<RunnerBase>();
+
+    public List<DungeonData.FloorData> DungeonFloorDataTable = new List<DungeonData.FloorData>();
 
     public new void Awake()
     {
@@ -20,6 +23,8 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
         //LoadItemProperty();
 
         loadRunnerBase();
+        LoadDungeonFloorData();
+
     }
 
     #region Player
@@ -52,8 +57,7 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
     public PlayerBase getPlayerBase(int level)
     {
         var playerBaseTable = PlayerBaseTable.Where(n => n.Level == level);
-        if (playerBaseTable == null) { return null; }
-        return playerBaseTable.First();
+        return playerBaseTable?.First();
     }
 
     #endregion
@@ -101,8 +105,7 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
     public EnemyBase getEnemyBase(int id)
     {
         var enemyBaseTable = EnemyBaseTable.Where(n => n.ID == id);
-        if (enemyBaseTable == null) { return null; }
-        return enemyBaseTable.First();
+        return enemyBaseTable?.First();
     }
 
     #endregion
@@ -159,8 +162,7 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
     public ItemBase GetItemBase(int id)
     {
         var itemBaseTable = ItemBaseTable.Where(n => n.ID == id);
-        if (itemBaseTable == null) { return null; }
-        return itemBaseTable.First();
+        return itemBaseTable?.First();
     }
 
     //void LoadItemProperty(){}
@@ -273,8 +275,43 @@ public class DataBaseManager : SingletonMonoBehaviour<DataBaseManager>
     public RunnerBase GetRunnerBase(int id)
     {
         var runnerTabele = RunnerBaseTable.Where(n => n.ID == id);
-        if (runnerTabele == null) { return null; }
-        return runnerTabele.First();
+        return runnerTabele?.First();
+    }
+
+    #endregion
+
+    #region DungeonFloorData
+
+    public void LoadDungeonFloorData()
+    {
+        var tempTable = (TempDungeonFloor)Resources.Load("Data/DungeonFloorTable");
+        for (int i = 0; i < tempTable.sheets[0].list.Count; i++)
+        {
+            var n = tempTable.sheets[0].list[i];
+            var dungeonFloor = new DungeonData.FloorData();
+            convertToFloorData(n, dungeonFloor);
+            DungeonFloorDataTable.Add(dungeonFloor);
+        }
+    }
+
+    void convertToFloorData(TempDungeonFloor.Param n, DungeonData.FloorData floorData)
+    {
+        floorData.FloorNum = n.Floor;
+        if (DungeonData.FloorData.FloorType.TryParse(n.Type, out floorData.Type) == false)
+        {
+            Debug.Log("FloorType読み込み失敗");
+        }
+        floorData.RoomCount = new IntVector2(n.RoomCountX, n.RoomCountY);
+        floorData.MaxRoomCell = new IntVector2(n.MaxRoomCellX, n.MaxRoomCellY);
+        floorData.MinRoomCell = new IntVector2(n.MinRoomCellX, n.MinRoomCellY);
+        floorData.MaxEnemyNum = n.MaxEnemyNum;
+        floorData.MinEnemyNum = n.MinEnemyNum;
+    }
+
+    public DungeonData.FloorData GetFloorData(int floorNum)
+    {
+        var floorDataTable = DungeonFloorDataTable.Where(n => n.FloorNum == floorNum);
+        return floorDataTable?.First();
     }
 
     #endregion

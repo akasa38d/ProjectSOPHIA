@@ -2,24 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SingleTextAct : AbstractTextAct
+public class SingleTextAct : AbstractTownAct
 {
     List<TextBox> textChain;
+    int textIterator = 0;
 
     //リストに残るもの
-    public SingleTextAct(string fileName, Exec exec) : base(fileName, exec)
+    public SingleTextAct(string fileName, Exec exec)
     {
-        textChain = textData.TextBoxChain;
+        var textFile = Resources.Load(fileName).ToString();
+        textChain = new TextData(textFile).TextBoxChain;
+        returnAct = exec;
     }
+
     //一時的なもの
-    public SingleTextAct(List<TextBox> chain, Exec exec) : base(exec)
+    public SingleTextAct(List<TextBox> chain, Exec exec)
     {
         textChain = chain;
+        returnAct = exec;        
     }
 
     public override void StartUp()
     {
-        base.StartUp();
+        AdvPartManager.Instance.CurrentAct = this;
 
         textIterator = 0;
 
@@ -36,7 +41,7 @@ public class SingleTextAct : AbstractTextAct
 
     public override void Close()
     {
-        ReturnAct();
+        returnAct();
     }
 
     public override void Update()

@@ -4,30 +4,36 @@ using UnityEngine;
 
 public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 {
-    Maze maze;
+    Dungeon dungeon;
 
     public int CurrentFloor = 0;
 
     public void Start()
     {
-        maze = new Maze();
+        dungeon = new Dungeon();
         CreateFloor(CurrentFloor);
+        instantiateStairs();
+        instantiatePlayer();
+        putPlayer();
     }
 
     public void CreateFloor(int floorNum)
     {
-        maze.CreateFloor(floorNum);
+        dungeon.CreateFloor(floorNum);
     }
 
-    public void InstantiateSquare(AbstractSquare square, GameObject gameObject)
+    void instantiateStairs()
     {
-        var gameObj = Instantiate(gameObject);
-        square.SetSelfObject(gameObj);
+        dungeon.PutStairs();
     }
 
-    public void InstantiateObject(AbstractObject _object, GameObject gameObject)
+    void instantiatePlayer()
     {
-        var gameObj = Instantiate(gameObject);
-        _object.SetSelfObject(gameObj);
-    }    
+        var gameObj = Instantiate(PrefabsManager.Instance.PlayerPrefab);
+        dungeon.Player = new PlayerCharacter(gameObj);
+    }
+    void putPlayer()
+    {
+        dungeon.PutPlayer();
+    }
 }

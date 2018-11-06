@@ -72,7 +72,7 @@ public class SingleIterator
     }
 }
 
-public class ItemIterator<T>
+public class ItemIterator
 {
     //内部のアイテム・キャンセル
     public int InnerNow { get { return UINow + SlideNow * ColumnCount; } }
@@ -92,9 +92,9 @@ public class ItemIterator<T>
     //１行あたりの数
     public readonly int ColumnCount = 7;
 
-    AbstractSecondItemAct<T> itemAct;
+    AbstractSecondItemAct itemAct;
 
-    public ItemIterator(int innerMax, int buttonMax, AbstractSecondItemAct<T> act)
+    public ItemIterator(int innerMax, int buttonMax, AbstractSecondItemAct act)
     {
         itemAct = act;
         InnerMax = innerMax;

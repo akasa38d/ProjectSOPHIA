@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
+public class MarketPurchaseAct : AbstractSecondItemAct
 {
     GameObject itemDescription { get { return AdvPartManager.Instance.GetDescription; } }
 
@@ -77,7 +77,7 @@ public class MarketPurchaseAct : AbstractSecondItemAct<MarketPurchaseAct>
     }
 }
 
-public class MarketSellAct : AbstractSecondItemAct<MarketSellAct>
+public class MarketSellAct : AbstractSecondItemAct
 {
     GameObject itemDescription { get { return AdvPartManager.Instance.GetDescription; } }
 

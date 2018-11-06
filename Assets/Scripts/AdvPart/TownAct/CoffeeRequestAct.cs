@@ -41,7 +41,11 @@ public class CoffeeRequestAct : AbstractSecondTownAct<RunnerData>
         }
     }
 
-    public override void Close() { base.Close(); }
+    public override void Close()
+    {
+        base.Close();
+        description.SetActive(false);
+    }
 
     protected override void selectObject(int count)
     {

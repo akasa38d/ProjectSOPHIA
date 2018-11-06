@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class TownBaseAct : AbstractTownAct
+public partial class TownBaseAct : AbstractTownAct
 {
     public List<Facility> Facilities;
 
@@ -22,7 +22,7 @@ public class TownBaseAct : AbstractTownAct
     //AdvPartManagerでの起動
     public override void StartUp()
     {
-        base.StartUp();
+        AdvPartManager.Instance.CurrentAct = this;
 
         AdvPartManager.Instance.ActivateFacilityImage(true);
 

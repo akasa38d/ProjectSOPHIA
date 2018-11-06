@@ -1,23 +1,28 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class MultiTextAct : AbstractTextAct
+public class MultiTextAct : AbstractTownAct
 {
+    protected TextData textData;
+    protected TextData.Type textType { get { return textData.TextType; } }
+    int textIterator = 0;
+
     SingleIterator personIterator;
 
     SelectLayout select;
 
     int groupCount { get { return textData.GroupCount; } }    //(現状最大３)
 
-    public MultiTextAct(string fileName, SelectLayout _select, Exec exec) : base(fileName, exec)
+    public MultiTextAct(string fileName, Exec exec, SelectLayout _select)
     {
+        var textFile = Resources.Load(fileName).ToString();
+        textData = new TextData(textFile);
+        returnAct = exec;
         select = _select;
     }
 
     public override void StartUp()
     {
-        base.StartUp();
-
         //イテレータ―の初期化
         textIterator = 0;
         personIterator = new SingleIterator(groupCount + 1);
@@ -38,7 +43,7 @@ public class MultiTextAct : AbstractTextAct
         select.Close();
 
         //返還
-        ReturnAct();
+        returnAct();
     }
 
     void openTextBox(int iterator, int person)

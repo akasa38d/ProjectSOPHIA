@@ -16,7 +16,7 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
         select = _select;
 
         //デリゲートの設定
-        ReturnAct = exec;
+        returnAct = exec;
 
         //リストのロード
         loadObjects();
@@ -26,7 +26,7 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
     public override void StartUp()
     {
-        base.StartUp();
+        AdvPartManager.Instance.CurrentAct = this;
 
         //イテレータ―の初期化
         singleIterator = new SingleIterator(objects.Count + 1);
@@ -48,18 +48,15 @@ public abstract class AbstractSecondTownAct<T> : AbstractTownAct
 
     public override void Close()
     {
-        //メッセージを消す
         FrameUIManager.Instance.UpdateMessageText("", "");
 
         SimpleClose();
 
-        //返還
-        ReturnAct();
+        returnAct();
     }
 
     public override void SimpleClose()
     {
-        //UIを消す
         foreach (var n in select.Buttons)
         {
             n.SetActive(false);

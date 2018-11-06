@@ -121,7 +121,7 @@ public class AttelierStorageAct : AbstractSecondTownAct<AttelierStorageAct.AStor
     }
 }
 
-public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
+public class AStoragePutAct : AbstractSecondItemAct
 {
     GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
@@ -134,8 +134,8 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
 
     public override void Close()
     {
-        description.SetActive(false);
         base.Close();
+        description.SetActive(false);        
     }
 
     protected override void selectObject(int uiCount)
@@ -180,7 +180,7 @@ public class AStoragePutAct : AbstractSecondItemAct<AStoragePutAct>
     }
 }
 
-public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
+public class AStoragePullAct : AbstractSecondItemAct
 {
     GameObject description { get { return AdvPartManager.Instance.GetDescription; } }
 
@@ -193,8 +193,8 @@ public class AStoragePullAct : AbstractSecondItemAct<AStoragePullAct>
 
     public override void Close()
     {
-        description.SetActive(false);
         base.Close();
+        description.SetActive(false);        
     }
 
     protected override void selectObject(int uiCount)

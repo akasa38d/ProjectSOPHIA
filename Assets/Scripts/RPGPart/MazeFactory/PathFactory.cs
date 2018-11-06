@@ -10,6 +10,8 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
         RoomFloorFactory floor;
         IntVector2 position;
 
+        protected const int PATH = 2;
+
         public enum Direction { North = 0, East = 1, South = 2, West = 3, Null = 4 };
 
         AbstractRoomFactory northWestRoom { get { return floor.Rooms[position.X, position.Y]; } }
@@ -101,8 +103,8 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 
         void connectPathHorizontally(IntVector2 startPoint, IntVector2 endPoint)
         {
-            floor.SetSquare(startPoint.X, startPoint.Y, 1);
-            floor.SetSquare(endPoint.X, endPoint.Y, 1);
+            floor.SetCell(startPoint.X, startPoint.Y, PATH);
+            floor.SetCell(endPoint.X, endPoint.Y, PATH);
 
             extendVertically(startPoint, endPoint);
             extendtHorizontally(startPoint, endPoint);            
@@ -110,8 +112,8 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 
         void connectPathVertically(IntVector2 startPoint, IntVector2 endPoint)
         {
-            floor.SetSquare(startPoint.X, startPoint.Y, 1);
-            floor.SetSquare(endPoint.X, endPoint.Y, 1);
+            floor.SetCell(startPoint.X, startPoint.Y, PATH);
+            floor.SetCell(endPoint.X, endPoint.Y, PATH);
 
             extendtHorizontally(startPoint, endPoint);
             extendVertically(startPoint, endPoint);                   
@@ -128,12 +130,12 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
                     if (i % 2 == 0)
                     {
                         startPoint.X += 1;
-                        floor.SetSquare(startPoint.X, startPoint.Y, 1);
+                        floor.SetCell(startPoint.X, startPoint.Y, PATH);
                     }
                     if (i % 2 == 1)
                     {
                         endPoint.X -= 1;
-                        floor.SetSquare(endPoint.X, endPoint.Y, 1);
+                        floor.SetCell(endPoint.X, endPoint.Y, PATH);
                     }
                 }
             }
@@ -145,12 +147,12 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
                     if (i % 2 == 0)
                     {
                         startPoint.X -= 1;
-                        floor.SetSquare(startPoint.X, startPoint.Y, 1);
+                        floor.SetCell(startPoint.X, startPoint.Y, PATH);
                     }
                     if (i % 2 == 1)
                     {
                         endPoint.X += 1;
-                        floor.SetSquare(endPoint.X, endPoint.Y, 1);
+                        floor.SetCell(endPoint.X, endPoint.Y, PATH);
                     }
                 }
             }
@@ -167,12 +169,12 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
                     if (i % 2 == 0)
                     {
                         startPoint.Y += 1;
-                        floor.SetSquare(startPoint.X, startPoint.Y, 1);
+                        floor.SetCell(startPoint.X, startPoint.Y, PATH);
                     }
                     if (i % 2 == 1)
                     {
                         endPoint.Y -= 1;
-                        floor.SetSquare(endPoint.X, endPoint.Y, 1);
+                        floor.SetCell(endPoint.X, endPoint.Y, PATH);
                     }
                 }
             }
@@ -184,12 +186,12 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
                     if (i % 2 == 0)
                     {
                         startPoint.Y -= 1;
-                        floor.SetSquare(startPoint.X, startPoint.Y, 1);
+                        floor.SetCell(startPoint.X, startPoint.Y, PATH);
                     }
                     if (i % 2 == 1)
                     {
                         endPoint.Y += 1;
-                        floor.SetSquare(endPoint.X, endPoint.Y, 1);
+                        floor.SetCell(endPoint.X, endPoint.Y, PATH);
                     }
                 }
             }

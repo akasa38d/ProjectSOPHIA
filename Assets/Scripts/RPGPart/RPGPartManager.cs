@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RPGPartManager : SingletonMonoBehaviour<RPGPartManager> {
-
+public class RPGPartManager : SingletonMonoBehaviour<RPGPartManager>, ISceneManager
+{
     void Start()
     {
-        SetControl();
+        Controller.Instance.CurrentManager = this;
     }
 
-    void SetControl()
+    public void Control()
     {
-        Controller.Instance.SetControlUpdate = () => { };
+
     }
 }

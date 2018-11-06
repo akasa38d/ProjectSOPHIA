@@ -8,13 +8,8 @@ public class CoffeeMissionAct : AbstractSecondTownAct<CoffeeMissionAct>
 
     SingleIterator iterator;
 
-    public CoffeeMissionAct(SelectLayoutLong select, Exec exec):base(select, exec)
+    public CoffeeMissionAct(SelectLayoutLong select, Exec exec) : base(select, exec)
     {
-        ReturnAct = exec;
+        returnAct = exec;
     }
-
-    
-
-
-
 }

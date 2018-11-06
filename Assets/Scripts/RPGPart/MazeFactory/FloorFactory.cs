@@ -8,45 +8,47 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 {
     public abstract class AbstractFloorFactory
     {
-        protected virtual IntVector2 maxSquareCount { get; }
-        public abstract int GetSquare(int x, int y);
+        protected virtual IntVector2 maxCellCount { get; }
 
-        public abstract int[,] CreateIntSquareArray();
+        public abstract int GetCell(int x, int y);
+
+        public abstract int[,] CreateIntCells();
     }
 
     public class RoomFloorFactory : AbstractFloorFactory
     {
-        public IntVector2 MaxRoomSize { private set; get; }
-        public IntVector2 MinRoomSize { private set; get; }
-        public IntVector2 MaxRoomCount { private set; get; }
+        Dungeon maze;
+        public IntVector2 MaxRoomSize { protected set; get; }
+        public IntVector2 MinRoomSize { protected set; get; }
+        public IntVector2 MaxRoomCount { protected set; get; }
 
-        protected override IntVector2 maxSquareCount { get { return new IntVector2(MaxRoomSize.X * MaxRoomCount.X, MaxRoomSize.Y * MaxRoomCount.Y); } }
+        protected override IntVector2 maxCellCount { get { return new IntVector2(MaxRoomSize.X * MaxRoomCount.X, MaxRoomSize.Y * MaxRoomCount.Y); } }
 
         public AbstractRoomFactory[,] Rooms;
         List<PathFactory> pathFactories;
 
-        public override int GetSquare(int x, int y)
+        public override int GetCell(int x, int y)
         {
             int posX = x / MaxRoomSize.X;
             int posY = y / MaxRoomSize.Y;
-            return Rooms[posX, posY].IntSquares[x % MaxRoomSize.X, y % MaxRoomSize.Y];
+            return Rooms[posX, posY].IntCells[x % MaxRoomSize.X, y % MaxRoomSize.Y];
         }
 
-        public void SetSquare(int x, int y, int value)
+        public void SetCell(int x, int y, int value)
         {
             int posX = x / MaxRoomSize.X;
             int posY = y / MaxRoomSize.Y;
-            Rooms[posX, posY].IntSquares[x % MaxRoomSize.X, y % MaxRoomSize.Y] = value;
+            Rooms[posX, posY].IntCells[x % MaxRoomSize.X, y % MaxRoomSize.Y] = value;
         }
 
         public RoomFloorFactory(IntVector2 roomMax, IntVector2 roomMin, IntVector2 roomCount)
         {
             MaxRoomSize = new IntVector2(roomMax);
             MinRoomSize = new IntVector2(roomMin);
-            MaxRoomCount = new IntVector2(roomCount);            
+            MaxRoomCount = new IntVector2(roomCount);
         }
 
-        public override int[,] CreateIntSquareArray()
+        public override int[,] CreateIntCells()
         {
             createPathMakers();
             createRooms();
@@ -55,17 +57,17 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
             checkNullRoom();
             createPath();
 
-            var intSquareArray = new int[maxSquareCount.X, maxSquareCount.Y];
+            var intCellArray = new int[maxCellCount.X, maxCellCount.Y];
 
-            for (int y = 0; y < maxSquareCount.Y; y++)
+            for (int y = 0; y < maxCellCount.Y; y++)
             {
-                for (int x = 0; x < maxSquareCount.X; x++)
+                for (int x = 0; x < maxCellCount.X; x++)
                 {
-                    intSquareArray[x,y] = GetSquare(x, y);
+                    intCellArray[x, y] = GetCell(x, y);
                 }
             }
 
-            return intSquareArray;
+            return intCellArray;
         }
 
         void createPathMakers()
@@ -80,16 +82,15 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
             }
         }
 
-        void createRooms()
+        protected virtual void createRooms()
         {
-            Rooms = new AbstractRoomFactory[MaxRoomCount.X, MaxRoomCount.Y];
-
-            int randomNum = Random.Range(0, 10);
+            Rooms = new AbstractRoomFactory[MaxRoomCount.X, MaxRoomCount.Y];            
 
             for (int y = 0; y < MaxRoomCount.Y; y++)
             {
                 for (int x = 0; x < MaxRoomCount.X; x++)
                 {
+                    int randomNum = Random.Range(0, 10);
                     if (randomNum < 9) { Rooms[x, y] = new PlainRoomFactory(x, y, this); }
                     else { Rooms[x, y] = new DonutRoomFactory(x, y, this); }
                 }
@@ -132,7 +133,57 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
         {
             foreach (var n in pathFactories) { n.CreatePath(); }
         }
-
     }
+
+    public class ReverseRoomFloorFactory : RoomFloorFactory
+    {
+        public ReverseRoomFloorFactory(IntVector2 roomMax, IntVector2 roomMin, IntVector2 roomCount) : base(roomMax, roomMin, roomCount) { }
+
+        public override int[,] CreateIntCells()
+        {
+            createRooms();
+
+            var intCells = new int[maxCellCount.X, maxCellCount.Y];
+
+            for (int y = 0; y < maxCellCount.Y; y++)
+            {
+                for (int x = 0; x < maxCellCount.X; x++)
+                {
+                    intCells[x, y] = GetCell(x, y);
+                }
+            }
+
+            reverseIntCells(intCells);
+
+            return intCells;
+        }
+
+        protected override void createRooms()
+        {
+            Rooms = new AbstractRoomFactory[MaxRoomCount.X, MaxRoomCount.Y];
+
+            for (int y = 0; y < MaxRoomCount.Y; y++)
+            {
+                for (int x = 0; x < MaxRoomCount.X; x++)
+                {
+                    Rooms[x, y] = new PlainRoomFactory(x, y, this);
+                }
+            }
+        }
+
+        void reverseIntCells(int[,] cells)
+        {
+            for (int y = 0; y < cells.GetLength(1); y++)
+            {
+                for (int x = 0; x < cells.GetLength(0); x++)
+                {
+                    if (cells[x, y] == 0) { cells[x, y] = 1; }
+                    if (cells[x, y] == 1) { cells[x, y] = 0; }
+                }
+            }
+        }
+    }
+
+    public class DesignFloorFactory { }
 }
 

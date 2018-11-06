@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
+public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>, ISceneManager
 {
     PrefabsManager prefabsManager { get { return PrefabsManager.Instance; } }
 
@@ -102,6 +102,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     //キャンバス
     [SerializeField]
     GameObject AdvCanvas;
+
     [SerializeField]
     GameObject MenuCanvas;
 
@@ -121,6 +122,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     public void StartUpTownBase()
     {
         if (TownBaseAct == null) { TownBaseAct = new TownBaseAct(); }
+        CurrentAct = TownBaseAct;
         TownBaseAct.StartUp();
     }
 
@@ -128,16 +130,16 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     public void StartUpSingleText(string fileName)
     {
         if (getAct(fileName) == null) { actDict.Add(fileName, new SingleTextAct(fileName, TownBaseAct.StartUp)); }
-        getAct(fileName).StartUp();
         TownBaseAct.Close();
+        getAct(fileName).StartUp();        
     }
 
     //複数人から選んで会話
     public void StartUpMultiText(string fileName)
     {
-        if (getAct(fileName) == null) { actDict.Add(fileName, new MultiTextAct(fileName, GetBasicSelectRight, TownBaseAct.StartUp)); }
-        getAct(fileName).StartUp();
+        if (getAct(fileName) == null) { actDict.Add(fileName, new MultiTextAct(fileName, TownBaseAct.StartUp, GetBasicSelectRight)); }
         TownBaseAct.Close();
+        getAct(fileName).StartUp();        
     }
 
     public void StartUpAtelierStorage()
@@ -145,7 +147,7 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
         var name = "AtelierStorage";
         if (getAct(name) == null) { actDict.Add(name, new AttelierStorageAct(GetBasicSelect, TownBaseAct.StartUp)); }
         TownBaseAct.Close();
-        getAct(name).StartUp();
+        getAct(name).StartUp();            
     }
 
     public void StartUpAtelierStoragePut(AbstractTownAct.Exec exec)
@@ -168,8 +170,8 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     {
         var name = "CoffeeRequest";
         if (getAct(name) == null) { actDict.Add(name, new CoffeeRequestAct(GetTwoTopicSelect, TownBaseAct.StartUp)); }
-        getAct(name).StartUp();
         TownBaseAct.Close();
+        getAct(name).StartUp();        
         ActivateFacilityImage(false);
     }
 
@@ -177,8 +179,8 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     {
         var name = "MarketPurchase";
         if (getAct(name) == null) { actDict.Add(name, new MarketPurchaseAct(TownBaseAct.StartUp)); }
-        getAct(name).StartUp();
         TownBaseAct.Close();
+        getAct(name).StartUp();        
         ActivateFacilityImage(false);
     }
 
@@ -186,8 +188,8 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     {
         var name = "MarketSell";
         if (getAct(name) == null) { actDict.Add(name, new MarketSellAct(TownBaseAct.StartUp)); }
-        getAct(name).StartUp();
         TownBaseAct.Close();
+        getAct(name).StartUp();        
         ActivateFacilityImage(false);
     }
 
@@ -207,17 +209,17 @@ public class AdvPartManager : SingletonMonoBehaviour<AdvPartManager>
     void Start()
     {
         StartUpTownBase();
-        SetControl();
-    }
-
-    void SetControl()
-    {
-        Controller.Instance.SetControlUpdate = () => CurrentAct.Update();
+        Controller.Instance.CurrentManager = this;
     }
 
     public void RefreshActs()
     {
         TownBaseAct.Refresh();
         foreach (var n in actDict.Values) { n.Refresh(); }
+    }
+
+    public void Control()
+    {
+        CurrentAct.Update();
     }
 }

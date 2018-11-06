@@ -19,6 +19,9 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 
         protected const int SPACE = 1;
 
+        protected const int ROOM = 1;
+        protected const int PATH = 2;
+
         public bool HaveNorthRoom = true;
         public bool HaveWestRoom = true;
         public bool HaveSouthRoom = true;
@@ -37,7 +40,7 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
             }
         }
 
-        public int[,] IntSquares;
+        public int[,] IntCells;
 
         public AbstractRoomFactory() { }
 
@@ -53,7 +56,7 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
         {
             cutEndOfFloor();
             setStartToEnd();
-            createSquare();
+            createCells();
         }
 
         protected void cutEndOfFloor()
@@ -70,14 +73,14 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
             EndPoint = new IntVector2(Random.Range(StartPoint.X + minSize.X, maxSize.X - SPACE), Random.Range(StartPoint.Y + minSize.Y, maxSize.Y - SPACE));
         }
 
-        protected virtual void createSquare()
+        protected virtual void createCells()
         {
-            IntSquares = new int[maxSize.X, maxSize.Y];
-            for (int y = 0; y < IntSquares.GetLength(1); y++)
+            IntCells = new int[maxSize.X, maxSize.Y];
+            for (int y = 0; y < IntCells.GetLength(1); y++)
             {
-                for (int x = 0; x < IntSquares.GetLength(0); x++)
+                for (int x = 0; x < IntCells.GetLength(0); x++)
                 {
-                    if (inRoom(x, y)) { IntSquares[x, y] = 1; }
+                    if (inRoom(x, y)) { IntCells[x, y] = ROOM; }
                 }
             }
         }
@@ -110,7 +113,7 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
         {
             cutEndOfFloor();
             setStartToEnd();
-            createSquare();
+            createCells();
             createHole();
         }
 
@@ -123,15 +126,15 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 
             if (end.X > start.X && end.Y > start.Y)
             {
-                for (int y = 0; y < IntSquares.GetLength(1); y++)
+                for (int y = 0; y < IntCells.GetLength(1); y++)
                 {
-                    for (int x = 0; x < IntSquares.GetLength(0); x++)
+                    for (int x = 0; x < IntCells.GetLength(0); x++)
                     {
                         if (x >= start.X && x < end.X)
                         {
                             if (y >= start.Y && y < end.Y)
                             {
-                                IntSquares[x, y] = 0;
+                                IntCells[x, y] = 0;
                             }
                         }
                     }
@@ -149,6 +152,12 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
             StartPoint = new IntVector2(Random.Range(SPACE, maxSize.X - minSize.X - SPACE), Random.Range(SPACE, maxSize.Y - minSize.Y - SPACE));
             EndPoint = new IntVector2(StartPoint.X + 1, StartPoint.Y + 1);
         }
+
+        protected override void createCells()
+        {
+            IntCells = new int[maxSize.X, maxSize.Y];
+            IntCells[StartPoint.X, StartPoint.Y] = PATH;
+        }
     }
 
     public class NullRoomFactory : AbstractRoomFactory
@@ -160,9 +169,9 @@ public partial class MazeManager : SingletonMonoBehaviour<MazeManager>
 
         public NullRoomFactory(int PosX, int PosY, RoomFloorFactory _floor) : base(PosX, PosY, _floor) { }
 
-        protected override void createSquare()
+        protected override void createCells()
         {
-            IntSquares = new int[maxSize.X, maxSize.Y];
+            IntCells = new int[maxSize.X, maxSize.Y];
         }
     }
 }

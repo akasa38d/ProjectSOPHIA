@@ -1,26 +1,21 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class AbstractTownAct
 {
-    //元のActへ戻すためのデリゲート
     public delegate void Exec();
-    public Exec ReturnAct;
+    protected Exec returnAct;
 
     //起動
-    public virtual void StartUp()
-    {
-        AdvPartManager.Instance.CurrentAct = this;
-    }
+    public abstract void StartUp();
 
     //非表示
-    public virtual void Close() { }
+    public abstract void Close();
+
     //ReturnActを伴わない非表示
     public virtual void SimpleClose() { }
 
     //制御
-    public virtual void Update() { }
+    public abstract void Update();
 
     //1日終了時のリフレッシュ処理
     public virtual void Refresh() { }

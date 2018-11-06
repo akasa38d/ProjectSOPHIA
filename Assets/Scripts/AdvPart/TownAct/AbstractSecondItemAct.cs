@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class AbstractSecondItemAct<T> : AbstractTownAct
+public abstract class AbstractSecondItemAct : AbstractTownAct
 {
-    protected ItemIterator<T> itemIterator;
+    protected ItemIterator itemIterator;
     protected int slideNow { get { return itemIterator.SlideNow; } }
     protected int slideMax { get { return itemIterator.SlideMax; } }
     protected int columnCount { get { return itemIterator.ColumnCount; } }
@@ -19,7 +19,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
     public AbstractSecondItemAct(Exec exec)
     {
         itemSet = AdvPartManager.Instance.GetItemSet.GetComponent<SelectLayoutLong>();
-        ReturnAct = exec;
+        returnAct = exec;
         loadObjects();
     }
 
@@ -27,10 +27,10 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
 
     public override void StartUp()
     {
-        base.StartUp();
+        AdvPartManager.Instance.CurrentAct = this;
 
         //イテレータ―の初期化
-        itemIterator = new ItemIterator<T>(objects.Count + 1, itemSet.Buttons.Count, this);
+        itemIterator = new ItemIterator(objects.Count + 1, itemSet.Buttons.Count, this);
 
         //UIの表示
         LayoutObjects();
@@ -93,7 +93,7 @@ public abstract class AbstractSecondItemAct<T> : AbstractTownAct
         itemSet.DownIcon.SetActive(false);
 
         //返還
-        ReturnAct();
+        returnAct();
     }
 
     protected virtual void selectObject(int uiCount)

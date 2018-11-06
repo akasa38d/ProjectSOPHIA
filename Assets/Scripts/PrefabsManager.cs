@@ -25,8 +25,16 @@ public class PrefabsManager : SingletonMonoBehaviour<PrefabsManager>
     #region RPG
 
     [SerializeField]
-    GameObject planeSquare;
-    public GameObject PlaneSquare { get { return planeSquare; } }
+    GameObject plainCell;
+    public GameObject PlainCell { get { return plainCell; } }
+
+    [SerializeField]
+    GameObject playerPrefab;
+    public GameObject PlayerPrefab { get { return playerPrefab; } }
+
+    [SerializeField]
+    GameObject enemyPrefab;
+    public GameObject EnemyPrefab { get { return enemyPrefab; } }
 
     #endregion
 

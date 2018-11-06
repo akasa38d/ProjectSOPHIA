@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,26 +9,18 @@ public class Controller : SingletonMonoBehaviour<Controller>
     public bool[] CatchButtonsEnter = new bool[CatchButtonsCount];
     public bool[] CatchButtonsDown = new bool[CatchButtonsCount];
 
-    public delegate void Exec();
-    Exec controlUpdate;
-    public Exec SetControlUpdate { set { controlUpdate = value; } }
+    public bool CanControl = false;
+
+    public ISceneManager CurrentManager;
 
     public void Update()
     {
-        controlUpdate?.Invoke();
+        CurrentManager?.Control();
 
-        for (int i = 0; i < CatchButtonsCount; i++)
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            if (CatchButtonsEnter[i] == true)
-            {
-                CatchButtonsEnter[i] = false;
-            }   
-
-            if(CatchButtonsDown[i] == true)
-            {
-                CatchButtonsDown[i] = false;
-            }
-        }        
+            Debug.Log((AdvPartManager.Instance.CurrentAct?.GetType()));
+        }
     }
 }
 
